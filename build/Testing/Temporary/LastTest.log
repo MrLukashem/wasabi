@@ -1,0 +1,19 @@
+Start testing: Apr 04 14:24 CEST
+----------------------------------------------------------
+1/1 Testing: wasabiTest
+1/1 Test: wasabiTest
+Command: "/home/ryu/Projects/wasabi/build/wasabi"
+Directory: /home/ryu/Projects/wasabi/build
+"wasabiTest" start time: Apr 04 14:24 CEST
+Output:
+----------------------------------------------------------
+ALSA lib pcm_dmix.c:1108:(snd_pcm_dmix_open) unable to open slave
+<end of output>
+Test time =   0.18 sec
+----------------------------------------------------------
+Test Passed.
+"wasabiTest" end time: Apr 04 14:24 CEST
+"wasabiTest" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Apr 04 14:24 CEST
