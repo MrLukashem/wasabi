@@ -10,12 +10,14 @@ namespace audio {
 namespace base {
 
 // TODO: group up const functions and non-const functions
-template <typename SampleType, std::size_t NumberOfChannels = 1>
+template <typename SampleType, uint8_t NumberOfChannels = 1>
 class AudioBuffer {
+private:
+    struct SampleProxy;
 public:
     explicit AudioBuffer() = default;
 
-    explicit AudioBuffer(const std::size_t length)
+    explicit AudioBuffer(const uint32_t length)
         : m_data(length * NumberOfChannels), m_length(length), m_currentSample{}
         , m_currentChannel{} {
             m_data.resize(length * NumberOfChannels);
@@ -34,6 +36,10 @@ public:
 
     virtual ~AudioBuffer() = default;
 
+    SampleProxy operator[] (const uint32_t n) {
+        return SampleProxy(n, *this);
+    }
+
     auto begin() {
         return std::begin(m_data) + (length() * m_currentChannel);
     }
@@ -42,15 +48,15 @@ public:
         return std::begin(m_data) + (length() * (m_currentChannel + 1));
     }
 
-    std::size_t length() const {
+    uint32_t length() const {
         return m_data.size();
     }
 
-    constexpr std::size_t numberOfChannels() const {
+    constexpr uint32_t numberOfChannels() const {
         return NumberOfChannels;
     }
 
-    void reallocate(const std::size_t newLength) noexcept {
+    void reallocate(const uint32_t newLength) noexcept {
         resetControlFields();
 
         m_length = newLength;
@@ -71,51 +77,97 @@ public:
     }
 
     void putSample(const SampleType& sample, const uint32_t channel = 0) {
-        ++m_currentSample;
         m_data.at(channel * m_data.size() + m_currentSample) = sample;
+        ++m_currentSample;
     }
 
-    SampleType& getSample(const uint32_t channel = 0) {
-        return m_data.at(channel * m_data.size() + m_currentSample);
+    void emplaceSample(const SampleType& sample, const uint32_t n, const uint32_t channel = 0) {
+        m_data.at(channel * m_data.size() + n) = sample;
     }
 
-    const SampleType& getSample(const uint32_t channel = 0) const {
-        return m_data.at(channel * m_data.size() + m_currentSample);
+    SampleType& getNextSample(const uint32_t channel = 0) {
+        return m_data.at(channel * m_data.size() + m_currentSample++);
     }
 
-    SampleType& getSampleAndAdvance(const uint32_t channel = 0) {
+    SampleType& getSample(const uint32_t n, const uint32_t channel = 0) {
+        return m_data.at(channel * m_data.size() + n);
+    }
+
+    const SampleType& getSample(const uint32_t n, const uint32_t channel = 0) const {
+        return m_data.at(channel * m_data.size() + n);
+    }
+
+    SampleType& getNextSampleAndAdvance(const uint32_t channel = 0) {
         auto& sample = getSample(channel);
         ++m_currentSample;
         return sample;
     }
 
-    std::size_t position() const noexcept {
+    uint32_t position() const noexcept {
         return m_currentSample;
     }
 
-    void setPosition(const std::size_t position) {
-        m_currentSample = position < m_length ? position : throw std::out_of_range{};
+    void setPosition(const uint32_t position) {
+        m_currentSample = position < m_length
+            ? position : throw std::out_of_range("The position is out of the buffer length");
     }
 
-    std::size_t advance(const std::size_t numOfSamples) noexcept {
-        const auto maxSamplesToAdvance = length() - m_currentSample;
+    uint32_t advance(const uint32_t numOfSamples) noexcept {
+        const auto maxSamplesToAdvance = length() - m_currentSample - 1;
         const auto samplesToAdvance =
             maxSamplesToAdvance >= numOfSamples ? numOfSamples : maxSamplesToAdvance;
-        m_currentChannel += samplesToAdvance;
+        m_currentSample += samplesToAdvance;
     
         return samplesToAdvance;
     }
 
-    void setCurrentChannel(const std::size_t channel) {
+    void setChannel(const uint8_t channel) {
         m_currentChannel = channel < NumberOfChannels ? channel : throw std::out_of_range{};
+    }
+
+    uint8_t getChannel() const noexcept {
+        return m_currentChannel;
     }
 private:
     std::vector<SampleType> m_data{};
-    std::size_t m_length{};
-    std::size_t m_currentSample{};
-    std::size_t m_currentChannel{};
+    uint32_t m_length{};
+    uint32_t m_currentSample{};
+    uint8_t m_currentChannel{};
 
-    void resetControlFields() {
+    struct SampleProxy {
+        SampleProxy(const uint32_t n, AudioBuffer& buffer) : m_mySampleIndex{n}, m_buffer{buffer} {}
+
+        SampleProxy(SampleProxy&&) = default;
+        SampleProxy(const SampleProxy&) = default;
+
+        SampleType& operator[] (const uint8_t channel) {
+            return m_buffer.getSample(m_mySampleIndex, channel);
+        }
+
+        SampleType& operator= (const SampleType& sample) {
+            m_buffer.emplaceSample(sample, m_mySampleIndex, m_buffer.getChannel());
+            return m_buffer.getSample(m_mySampleIndex, m_buffer.getChannel());
+        }
+
+        SampleType& operator+= (const SampleType& value) {
+            auto& currentSample = m_buffer.getSample(m_mySampleIndex, m_buffer.getChannel());
+            m_buffer.emplaceSample(currentSample + value, m_mySampleIndex, m_buffer.getChannel());
+
+            return currentSample;
+        }
+
+        SampleType& operator-= (const SampleType& value) {
+            auto& currentSample = m_buffer.getSample(m_mySampleIndex, m_buffer.getChannel());
+            m_buffer.emplaceSample(currentSample - value, m_mySampleIndex, m_buffer.getChannel());
+
+            return currentSample;
+        }
+
+        const uint32_t m_mySampleIndex;
+        AudioBuffer<SampleType, NumberOfChannels>& m_buffer;
+    };
+
+    void resetControlFields() noexcept {
         m_length = 0;
         m_currentSample = 0;
         m_currentSample = 0;
@@ -125,3 +177,4 @@ private:
 } // namespace wasabi
 } // namespace audio
 } // namespace base
+
