@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/wasabiTest.dir/tests/AudioBufferTests.cpp.o"
+  "CMakeFiles/wasabiTest.dir/tests/TypeWrapperTests.cpp.o"
   "wasabiTest.pdb"
   "wasabiTest"
 )

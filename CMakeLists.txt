@@ -13,6 +13,8 @@ add_executable(wasabi src/main.cpp)
 # libs for the linker
 target_link_libraries(wasabi libasound.so)
 
-add_executable(wasabiTest tests/AudioBufferTests.cpp)
+add_executable(wasabiTest
+    tests/AudioBufferTests.cpp
+    tests/TypeWrapperTests.cpp)
 enable_testing()
 add_test(NAME wasabiTest COMMAND wasabi)

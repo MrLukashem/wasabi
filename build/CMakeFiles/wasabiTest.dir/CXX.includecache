@@ -6,17 +6,13 @@
 
 #IncludeRegexTransform: 
 
-../src/audio/base/include/AudioBuffer.hpp
-stdexcept
--
-vector
--
+../src/audio/base/include/TypeWrapper.hpp
 
-/home/ryu/Projects/wasabi/tests/AudioBufferTests.cpp
+/home/ryu/Projects/wasabi/tests/TypeWrapperTests.cpp
 include/catch.hpp
 /home/ryu/Projects/wasabi/tests/include/catch.hpp
-AudioBuffer.hpp
-/home/ryu/Projects/wasabi/tests/AudioBuffer.hpp
+TypeWrapper.hpp
+/home/ryu/Projects/wasabi/tests/TypeWrapper.hpp
 
 /home/ryu/Projects/wasabi/tests/include/catch.hpp
 TargetConditionals.h

@@ -5,3 +5,7 @@ CMakeFiles/wasabiTest.dir/tests/AudioBufferTests.cpp.o: ../src/audio/base/includ
 CMakeFiles/wasabiTest.dir/tests/AudioBufferTests.cpp.o: ../tests/AudioBufferTests.cpp
 CMakeFiles/wasabiTest.dir/tests/AudioBufferTests.cpp.o: ../tests/include/catch.hpp
 
+CMakeFiles/wasabiTest.dir/tests/TypeWrapperTests.cpp.o: ../src/audio/base/include/TypeWrapper.hpp
+CMakeFiles/wasabiTest.dir/tests/TypeWrapperTests.cpp.o: ../tests/TypeWrapperTests.cpp
+CMakeFiles/wasabiTest.dir/tests/TypeWrapperTests.cpp.o: ../tests/include/catch.hpp
+

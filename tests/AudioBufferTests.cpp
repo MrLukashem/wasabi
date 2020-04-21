@@ -44,32 +44,43 @@ TEST_CASE("putSample and getSample", "[AudioBuffer]") {
 TEST_CASE("advance", "[AudioBuffer]") {
     AudioBuffer<uint32_t, 1> buffer(10);
     REQUIRE(buffer.length() == 10);
-    REQUIRE(buffer.position() == 0);
+    REQUIRE(buffer.getPosition() == 0);
     REQUIRE(buffer.advance(5) == 5);
-    REQUIRE(buffer.position() == 5); 
+    REQUIRE(buffer.getPosition() == 5); 
 }
 
 TEST_CASE("iterators", "[AudioBuffer]") {
-    AudioBuffer<uint32_t, 1> buffer(100);
-    REQUIRE(buffer.length() == 100);
+    // mutable buffer
+    {
+        AudioBuffer<uint32_t, 1> buffer(100);
+        REQUIRE(buffer.length() == 100);
 
-    uint32_t seed{};
-    const auto& generateSample = [&seed] () {
-        return seed++;
-    };
+        uint32_t seed{};
+        const auto& generateSample = [&seed] () {
+            return seed++;
+        };
 
-    for (auto& sample : buffer) {
-        sample = generateSample();
+        for (auto& sample : buffer) {
+            sample = generateSample();
+        }
+
+        seed = 0;
+        for (auto itr = buffer.begin(); itr != buffer.end(); ++itr) {
+            REQUIRE(*itr == generateSample());
+        }
+
+        REQUIRE(buffer.getSample(10) == 10);
+        REQUIRE(buffer.getSample(55) == 55);
+        REQUIRE(buffer.getSample(99) == 99);
     }
 
-    seed = 0;
-    for (auto itr = buffer.begin(); itr != buffer.end(); ++itr) {
-        REQUIRE(*itr == generateSample());
+    // const buffer
+    {
+        const AudioBuffer<uint32_t, 1> buffer(50);
+        for (auto itr = buffer.cbegin(); itr != buffer.cend(); ++itr) {
+            REQUIRE(*itr == 0);
+        }
     }
-
-    REQUIRE(buffer.getSample(10) == 10);
-    REQUIRE(buffer.getSample(55) == 55);
-    REQUIRE(buffer.getSample(99) == 99);
 }
 
 TEST_CASE("data", "[AudioBuffer]") {
@@ -116,6 +127,17 @@ TEST_CASE("operator[][]", "[AudioBuffer]") {
         REQUIRE(buffer.getSample(i) == n);
         ++n;
     }
+}
+
+TEST_CASE("reallocate", "[AudioBuffer]") {
+    AudioBuffer<uint32_t, 1> buffer(55);
+    REQUIRE(buffer.length() == 55);
+
+    buffer.reallocate(30);
+    REQUIRE(buffer.length() == 30);
+
+    buffer.reallocate(100);
+    REQUIRE(buffer.length() == 100);
 }
 
 } // namespace tests

@@ -10,6 +10,7 @@ namespace audio {
 namespace base {
 
 // TODO: group up const functions and non-const functions
+// TODO: clone buffer
 template <typename SampleType, uint8_t NumberOfChannels = 1>
 class AudioBuffer {
 private:
@@ -23,14 +24,14 @@ public:
             m_data.resize(length * NumberOfChannels);
         }
 
-    explicit AudioBuffer(AudioBuffer&& buffer) {
+    AudioBuffer(AudioBuffer&& buffer) {
         m_data = std::move(buffer.m_data);
         m_length = buffer.m_length;
         m_currentSample = buffer.m_currentSample;
         m_currentChannel = buffer.m_currentChannel;
     }
 
-    explicit AudioBuffer(const AudioBuffer& buffer) {
+    AudioBuffer(const AudioBuffer& buffer) {
         m_data = buffer.m_data;
     }
 
@@ -40,12 +41,20 @@ public:
         return SampleProxy(n, *this);
     }
 
-    auto begin() {
+    auto begin() noexcept {
         return std::begin(m_data) + (length() * m_currentChannel);
     }
 
-    auto end() {
+    auto end() noexcept {
         return std::begin(m_data) + (length() * (m_currentChannel + 1));
+    }
+
+    auto cbegin() const noexcept {
+        return std::cbegin(m_data) + (length() * m_currentChannel);
+    }
+
+    auto cend() const noexcept {
+        return std::cbegin(m_data) + (length() * (m_currentChannel + 1));
     }
 
     uint32_t length() const {
@@ -56,7 +65,7 @@ public:
         return NumberOfChannels;
     }
 
-    void reallocate(const uint32_t newLength) noexcept {
+    void reallocate(const uint32_t newLength) {
         resetControlFields();
 
         m_length = newLength;
@@ -103,7 +112,7 @@ public:
         return sample;
     }
 
-    uint32_t position() const noexcept {
+    uint32_t getPosition() const noexcept {
         return m_currentSample;
     }
 
@@ -121,11 +130,11 @@ public:
         return samplesToAdvance;
     }
 
-    void setChannel(const uint8_t channel) {
+    void setCurrentChannel(const uint8_t channel) {
         m_currentChannel = channel < NumberOfChannels ? channel : throw std::out_of_range{};
     }
 
-    uint8_t getChannel() const noexcept {
+    uint8_t getCurrentChannel() const noexcept {
         return m_currentChannel;
     }
 private:
@@ -145,20 +154,20 @@ private:
         }
 
         SampleType& operator= (const SampleType& sample) {
-            m_buffer.emplaceSample(sample, m_mySampleIndex, m_buffer.getChannel());
-            return m_buffer.getSample(m_mySampleIndex, m_buffer.getChannel());
+            m_buffer.emplaceSample(sample, m_mySampleIndex, m_buffer.getCurrentChannel());
+            return m_buffer.getSample(m_mySampleIndex, m_buffer.getCurrentChannel());
         }
 
         SampleType& operator+= (const SampleType& value) {
-            auto& currentSample = m_buffer.getSample(m_mySampleIndex, m_buffer.getChannel());
-            m_buffer.emplaceSample(currentSample + value, m_mySampleIndex, m_buffer.getChannel());
+            auto& currentSample = m_buffer.getSample(m_mySampleIndex, m_buffer.getCurrentChannel());
+            m_buffer.emplaceSample(currentSample + value, m_mySampleIndex, m_buffer.getCurrentChannel());
 
             return currentSample;
         }
 
         SampleType& operator-= (const SampleType& value) {
-            auto& currentSample = m_buffer.getSample(m_mySampleIndex, m_buffer.getChannel());
-            m_buffer.emplaceSample(currentSample - value, m_mySampleIndex, m_buffer.getChannel());
+            auto& currentSample = m_buffer.getSample(m_mySampleIndex, m_buffer.getCurrentChannel());
+            m_buffer.emplaceSample(currentSample - value, m_mySampleIndex, m_buffer.getCurrentChannel());
 
             return currentSample;
         }
@@ -177,4 +186,3 @@ private:
 } // namespace wasabi
 } // namespace audio
 } // namespace base
-

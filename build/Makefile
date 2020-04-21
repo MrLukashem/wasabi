@@ -201,6 +201,33 @@ tests/AudioBufferTests.cpp.s:
 	$(MAKE) -f CMakeFiles/wasabiTest.dir/build.make CMakeFiles/wasabiTest.dir/tests/AudioBufferTests.cpp.s
 .PHONY : tests/AudioBufferTests.cpp.s
 
+tests/TypeWrapperTests.o: tests/TypeWrapperTests.cpp.o
+
+.PHONY : tests/TypeWrapperTests.o
+
+# target to build an object file
+tests/TypeWrapperTests.cpp.o:
+	$(MAKE) -f CMakeFiles/wasabiTest.dir/build.make CMakeFiles/wasabiTest.dir/tests/TypeWrapperTests.cpp.o
+.PHONY : tests/TypeWrapperTests.cpp.o
+
+tests/TypeWrapperTests.i: tests/TypeWrapperTests.cpp.i
+
+.PHONY : tests/TypeWrapperTests.i
+
+# target to preprocess a source file
+tests/TypeWrapperTests.cpp.i:
+	$(MAKE) -f CMakeFiles/wasabiTest.dir/build.make CMakeFiles/wasabiTest.dir/tests/TypeWrapperTests.cpp.i
+.PHONY : tests/TypeWrapperTests.cpp.i
+
+tests/TypeWrapperTests.s: tests/TypeWrapperTests.cpp.s
+
+.PHONY : tests/TypeWrapperTests.s
+
+# target to generate assembly for a file
+tests/TypeWrapperTests.cpp.s:
+	$(MAKE) -f CMakeFiles/wasabiTest.dir/build.make CMakeFiles/wasabiTest.dir/tests/TypeWrapperTests.cpp.s
+.PHONY : tests/TypeWrapperTests.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -218,6 +245,9 @@ help:
 	@echo "... tests/AudioBufferTests.o"
 	@echo "... tests/AudioBufferTests.i"
 	@echo "... tests/AudioBufferTests.s"
+	@echo "... tests/TypeWrapperTests.o"
+	@echo "... tests/TypeWrapperTests.i"
+	@echo "... tests/TypeWrapperTests.s"
 .PHONY : help
 
 
