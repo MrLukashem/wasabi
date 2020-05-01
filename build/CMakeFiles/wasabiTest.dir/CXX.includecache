@@ -6,13 +6,15 @@
 
 #IncludeRegexTransform: 
 
-../src/audio/base/include/TypeWrapper.hpp
+../src/audio/include/StreamBuilder.hpp
+memory
+-
 
-/home/ryu/Projects/wasabi/tests/TypeWrapperTests.cpp
+/home/ryu/Projects/wasabi/tests/StreamBuilderTests.cpp
 include/catch.hpp
 /home/ryu/Projects/wasabi/tests/include/catch.hpp
-TypeWrapper.hpp
-/home/ryu/Projects/wasabi/tests/TypeWrapper.hpp
+StreamBuilder.hpp
+/home/ryu/Projects/wasabi/tests/StreamBuilder.hpp
 
 /home/ryu/Projects/wasabi/tests/include/catch.hpp
 TargetConditionals.h

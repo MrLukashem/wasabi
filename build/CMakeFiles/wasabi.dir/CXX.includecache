@@ -6,9 +6,3 @@
 
 #IncludeRegexTransform: 
 
-/home/ryu/Projects/wasabi/src/main.cpp
-iostream
--
-alsa/asoundlib.h
--
-

@@ -6,6 +6,7 @@ project(wasabi)
 
 include_directories(
     src/audio/base/include
+    src/audio/include
     tests/include)
 # add the executable
 add_executable(wasabi src/main.cpp)
@@ -15,6 +16,7 @@ target_link_libraries(wasabi libasound.so)
 
 add_executable(wasabiTest
     tests/AudioBufferTests.cpp
-    tests/TypeWrapperTests.cpp)
+    tests/TypeWrapperTests.cpp
+    tests/StreamBuilderTests.cpp)
 enable_testing()
 add_test(NAME wasabiTest COMMAND wasabi)

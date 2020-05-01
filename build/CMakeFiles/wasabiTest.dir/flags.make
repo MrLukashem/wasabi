@@ -6,5 +6,5 @@ CXX_FLAGS =
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/ryu/Projects/wasabi/src/audio/base/include -I/home/ryu/Projects/wasabi/tests/include 
+CXX_INCLUDES = -I/home/ryu/Projects/wasabi/src/audio/base/include -I/home/ryu/Projects/wasabi/src/audio/include -I/home/ryu/Projects/wasabi/tests/include 
 

@@ -201,6 +201,33 @@ tests/AudioBufferTests.cpp.s:
 	$(MAKE) -f CMakeFiles/wasabiTest.dir/build.make CMakeFiles/wasabiTest.dir/tests/AudioBufferTests.cpp.s
 .PHONY : tests/AudioBufferTests.cpp.s
 
+tests/StreamBuilderTests.o: tests/StreamBuilderTests.cpp.o
+
+.PHONY : tests/StreamBuilderTests.o
+
+# target to build an object file
+tests/StreamBuilderTests.cpp.o:
+	$(MAKE) -f CMakeFiles/wasabiTest.dir/build.make CMakeFiles/wasabiTest.dir/tests/StreamBuilderTests.cpp.o
+.PHONY : tests/StreamBuilderTests.cpp.o
+
+tests/StreamBuilderTests.i: tests/StreamBuilderTests.cpp.i
+
+.PHONY : tests/StreamBuilderTests.i
+
+# target to preprocess a source file
+tests/StreamBuilderTests.cpp.i:
+	$(MAKE) -f CMakeFiles/wasabiTest.dir/build.make CMakeFiles/wasabiTest.dir/tests/StreamBuilderTests.cpp.i
+.PHONY : tests/StreamBuilderTests.cpp.i
+
+tests/StreamBuilderTests.s: tests/StreamBuilderTests.cpp.s
+
+.PHONY : tests/StreamBuilderTests.s
+
+# target to generate assembly for a file
+tests/StreamBuilderTests.cpp.s:
+	$(MAKE) -f CMakeFiles/wasabiTest.dir/build.make CMakeFiles/wasabiTest.dir/tests/StreamBuilderTests.cpp.s
+.PHONY : tests/StreamBuilderTests.cpp.s
+
 tests/TypeWrapperTests.o: tests/TypeWrapperTests.cpp.o
 
 .PHONY : tests/TypeWrapperTests.o
@@ -245,6 +272,9 @@ help:
 	@echo "... tests/AudioBufferTests.o"
 	@echo "... tests/AudioBufferTests.i"
 	@echo "... tests/AudioBufferTests.s"
+	@echo "... tests/StreamBuilderTests.o"
+	@echo "... tests/StreamBuilderTests.i"
+	@echo "... tests/StreamBuilderTests.s"
 	@echo "... tests/TypeWrapperTests.o"
 	@echo "... tests/TypeWrapperTests.i"
 	@echo "... tests/TypeWrapperTests.s"
