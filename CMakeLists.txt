@@ -9,7 +9,9 @@ include_directories(
     src/audio/include
     tests/include)
 # add the executable
-add_executable(wasabi src/main.cpp)
+add_executable(wasabi
+    src/main.cpp
+    src/audio/StreamBuilder.cpp)
 
 # libs for the linker
 target_link_libraries(wasabi libasound.so)
@@ -17,6 +19,7 @@ target_link_libraries(wasabi libasound.so)
 add_executable(wasabiTest
     tests/AudioBufferTests.cpp
     tests/TypeWrapperTests.cpp
-    tests/StreamBuilderTests.cpp)
+    tests/StreamBuilderTests.cpp
+    src/audio/StreamBuilder.cpp)
 enable_testing()
 add_test(NAME wasabiTest COMMAND wasabi)

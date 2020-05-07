@@ -4,9 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/ryu/Projects/wasabi/tests/AudioBufferTests.cpp" "/home/ryu/Projects/wasabi/build/CMakeFiles/wasabiTest.dir/tests/AudioBufferTests.cpp.o"
-  "/home/ryu/Projects/wasabi/tests/StreamBuilderTests.cpp" "/home/ryu/Projects/wasabi/build/CMakeFiles/wasabiTest.dir/tests/StreamBuilderTests.cpp.o"
-  "/home/ryu/Projects/wasabi/tests/TypeWrapperTests.cpp" "/home/ryu/Projects/wasabi/build/CMakeFiles/wasabiTest.dir/tests/TypeWrapperTests.cpp.o"
+  "/home/lmerta/Projects/wasabi/src/audio/StreamBuilder.cpp" "/home/lmerta/Projects/wasabi/build/CMakeFiles/wasabiTest.dir/src/audio/StreamBuilder.cpp.o"
+  "/home/lmerta/Projects/wasabi/tests/AudioBufferTests.cpp" "/home/lmerta/Projects/wasabi/build/CMakeFiles/wasabiTest.dir/tests/AudioBufferTests.cpp.o"
+  "/home/lmerta/Projects/wasabi/tests/StreamBuilderTests.cpp" "/home/lmerta/Projects/wasabi/build/CMakeFiles/wasabiTest.dir/tests/StreamBuilderTests.cpp.o"
+  "/home/lmerta/Projects/wasabi/tests/TypeWrapperTests.cpp" "/home/lmerta/Projects/wasabi/build/CMakeFiles/wasabiTest.dir/tests/TypeWrapperTests.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

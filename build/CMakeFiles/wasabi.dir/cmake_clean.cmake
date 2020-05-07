@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/wasabi.dir/src/main.cpp.o"
+  "CMakeFiles/wasabi.dir/src/audio/StreamBuilder.cpp.o"
   "wasabi.pdb"
   "wasabi"
 )

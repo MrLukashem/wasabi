@@ -6,3 +6,33 @@
 
 #IncludeRegexTransform: 
 
+../src/audio/base/include/AudioTypes.hpp
+TypeWrapper.hpp
+../src/audio/base/include/TypeWrapper.hpp
+
+../src/audio/base/include/TypeWrapper.hpp
+
+../src/audio/include/AudioStream.hpp
+
+../src/audio/include/Builder.hpp
+
+../src/audio/include/StreamBuilder.hpp
+memory
+-
+AudioTypes.hpp
+../src/audio/include/AudioTypes.hpp
+Builder.hpp
+../src/audio/include/Builder.hpp
+
+/home/lmerta/Projects/wasabi/src/audio/StreamBuilder.cpp
+StreamBuilder.hpp
+/home/lmerta/Projects/wasabi/src/audio/StreamBuilder.hpp
+AudioStream.hpp
+/home/lmerta/Projects/wasabi/src/audio/AudioStream.hpp
+
+/home/lmerta/Projects/wasabi/src/main.cpp
+iostream
+-
+alsa/asoundlib.h
+-
+
