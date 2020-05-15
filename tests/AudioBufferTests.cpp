@@ -16,13 +16,13 @@ TEST_CASE("Initialization", "[AudioBuffer]") {
     AudioBuffer<uint32_t> buffer{};
     REQUIRE(buffer.length() == 0);
 
-    AudioBuffer<uint32_t> buffer2(20);
+    AudioBuffer<uint32_t> buffer2(20, 1);
     REQUIRE(buffer2.length() == 20);
 }
 
 
 TEST_CASE("putSample and getSample", "[AudioBuffer]") {
-    AudioBuffer<uint32_t> buffer(5);
+    AudioBuffer<uint32_t> buffer(5, 1);
     REQUIRE(buffer.length() == 5);
 
     buffer.putSample(1);
@@ -42,7 +42,7 @@ TEST_CASE("putSample and getSample", "[AudioBuffer]") {
 }
 
 TEST_CASE("advance", "[AudioBuffer]") {
-    AudioBuffer<uint32_t, 1> buffer(10);
+    AudioBuffer<uint32_t> buffer(10, 1);
     REQUIRE(buffer.length() == 10);
     REQUIRE(buffer.getPosition() == 0);
     REQUIRE(buffer.advance(5) == 5);
@@ -52,7 +52,7 @@ TEST_CASE("advance", "[AudioBuffer]") {
 TEST_CASE("iterators", "[AudioBuffer]") {
     // mutable buffer
     {
-        AudioBuffer<uint32_t, 1> buffer(100);
+        AudioBuffer<uint32_t> buffer(100, 1);
         REQUIRE(buffer.length() == 100);
 
         uint32_t seed{};
@@ -76,7 +76,7 @@ TEST_CASE("iterators", "[AudioBuffer]") {
 
     // const buffer
     {
-        const AudioBuffer<uint32_t, 1> buffer(50);
+        const AudioBuffer<uint32_t> buffer(50, 1);
         for (auto itr = buffer.cbegin(); itr != buffer.cend(); ++itr) {
             REQUIRE(*itr == 0);
         }
@@ -84,7 +84,7 @@ TEST_CASE("iterators", "[AudioBuffer]") {
 }
 
 TEST_CASE("data", "[AudioBuffer]") {
-    AudioBuffer<uint32_t, 1> buffer(10);
+    AudioBuffer<uint32_t> buffer(10, 1);
     uint32_t* data = buffer.data();
     data[9] = 123;
 
@@ -92,12 +92,12 @@ TEST_CASE("data", "[AudioBuffer]") {
 }
 
 TEST_CASE("setPosition", "[AudioBuffer]") {
-    AudioBuffer<uint32_t, 1> buffer(10);
+    AudioBuffer<uint32_t> buffer(10, 1);
     REQUIRE_THROWS(buffer.setPosition(10));
 }
 
 TEST_CASE("operator[]", "[AudioBuffer]") {
-    AudioBuffer<uint32_t, 1> buffer(10);
+    AudioBuffer<uint32_t> buffer(10, 1);
 
     uint32_t n = 0;
     for (uint32_t i = 0; i < buffer.length(); ++i) {
@@ -114,7 +114,7 @@ TEST_CASE("operator[]", "[AudioBuffer]") {
 
 // TODO: make test for more channels
 TEST_CASE("operator[][]", "[AudioBuffer]") {
-    AudioBuffer<uint32_t, 1> buffer(10);
+    AudioBuffer<uint32_t> buffer(10, 1);
 
     uint32_t n = 0;
     for (uint32_t i = 0; i < buffer.length(); ++i) {
@@ -130,7 +130,7 @@ TEST_CASE("operator[][]", "[AudioBuffer]") {
 }
 
 TEST_CASE("reallocate", "[AudioBuffer]") {
-    AudioBuffer<uint32_t, 1> buffer(55);
+    AudioBuffer<uint32_t> buffer(55, 1);
     REQUIRE(buffer.length() == 55);
 
     buffer.reallocate(30);

@@ -18,43 +18,41 @@ TypeWrapper.hpp
 
 ../src/audio/base/include/TypeWrapper.hpp
 
+../src/audio/include/AudioDriver.hpp
+
+../src/audio/include/AudioPlaybackStream.hpp
+AudioDriver.hpp
+../src/audio/include/AudioDriver.hpp
+AudioStream.hpp
 ../src/audio/include/AudioStream.hpp
+
+../src/audio/include/AudioStream.hpp
+functional
+-
+AudioBuffer.hpp
+../src/audio/include/AudioBuffer.hpp
 
 ../src/audio/include/Builder.hpp
 
 ../src/audio/include/StreamBuilder.hpp
 memory
 -
+AudioPlaybackStream.hpp
+../src/audio/include/AudioPlaybackStream.hpp
 AudioTypes.hpp
 ../src/audio/include/AudioTypes.hpp
 Builder.hpp
 ../src/audio/include/Builder.hpp
 
-/home/lmerta/Projects/wasabi/src/audio/StreamBuilder.cpp
-StreamBuilder.hpp
-/home/lmerta/Projects/wasabi/src/audio/StreamBuilder.hpp
+/home/ryu/Projects/wasabi/tests/StreamBuilderTests.cpp
+include/catch.hpp
+/home/ryu/Projects/wasabi/tests/include/catch.hpp
 AudioStream.hpp
-/home/lmerta/Projects/wasabi/src/audio/AudioStream.hpp
-
-/home/lmerta/Projects/wasabi/tests/AudioBufferTests.cpp
-include/catch.hpp
-/home/lmerta/Projects/wasabi/tests/include/catch.hpp
-AudioBuffer.hpp
-/home/lmerta/Projects/wasabi/tests/AudioBuffer.hpp
-
-/home/lmerta/Projects/wasabi/tests/StreamBuilderTests.cpp
-include/catch.hpp
-/home/lmerta/Projects/wasabi/tests/include/catch.hpp
+/home/ryu/Projects/wasabi/tests/AudioStream.hpp
 StreamBuilder.hpp
-/home/lmerta/Projects/wasabi/tests/StreamBuilder.hpp
+/home/ryu/Projects/wasabi/tests/StreamBuilder.hpp
 
-/home/lmerta/Projects/wasabi/tests/TypeWrapperTests.cpp
-include/catch.hpp
-/home/lmerta/Projects/wasabi/tests/include/catch.hpp
-TypeWrapper.hpp
-/home/lmerta/Projects/wasabi/tests/TypeWrapper.hpp
-
-/home/lmerta/Projects/wasabi/tests/include/catch.hpp
+/home/ryu/Projects/wasabi/tests/include/catch.hpp
 TargetConditionals.h
 -
 ciso646
@@ -432,7 +430,7 @@ string
 memory
 -
 Foundation/Foundation.h
-/home/lmerta/Projects/wasabi/tests/include/Foundation/Foundation.h
+/home/ryu/Projects/wasabi/tests/include/Foundation/Foundation.h
 limits
 -
 set
