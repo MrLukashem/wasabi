@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_FLAGS =   -std=gnu++17
 
-CXX_DEFINES = 
+CXX_DEFINES = -DALSA_SUPPORTED=1
 
-CXX_INCLUDES = -I/home/ryu/Projects/wasabi/src/audio/base/include -I/home/ryu/Projects/wasabi/src/audio/include -I/home/ryu/Projects/wasabi/tests/include 
+CXX_INCLUDES = -I/home/ryu/Projects/wasabi/src/audio/base/include -I/home/ryu/Projects/wasabi/src/audio/drivers/include -I/home/ryu/Projects/wasabi/src/audio/include -I/home/ryu/Projects/wasabi/tests/include 
 

@@ -18,7 +18,11 @@ TypeWrapper.hpp
 
 ../src/audio/base/include/TypeWrapper.hpp
 
-../src/audio/include/AudioDriver.hpp
+../src/audio/drivers/include/AConfiguration.hpp
+
+../src/audio/drivers/include/AudioDriver.hpp
+AConfiguration.hpp
+../src/audio/drivers/include/AConfiguration.hpp
 
 ../src/audio/include/AudioPlaybackStream.hpp
 AudioDriver.hpp

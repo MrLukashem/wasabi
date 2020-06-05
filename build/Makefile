@@ -177,6 +177,36 @@ src/audio/Devices.cpp.s:
 	$(MAKE) -f CMakeFiles/wasabiTest.dir/build.make CMakeFiles/wasabiTest.dir/src/audio/Devices.cpp.s
 .PHONY : src/audio/Devices.cpp.s
 
+src/audio/drivers/ASoundAudioDriver.o: src/audio/drivers/ASoundAudioDriver.cpp.o
+
+.PHONY : src/audio/drivers/ASoundAudioDriver.o
+
+# target to build an object file
+src/audio/drivers/ASoundAudioDriver.cpp.o:
+	$(MAKE) -f CMakeFiles/wasabi.dir/build.make CMakeFiles/wasabi.dir/src/audio/drivers/ASoundAudioDriver.cpp.o
+	$(MAKE) -f CMakeFiles/wasabiTest.dir/build.make CMakeFiles/wasabiTest.dir/src/audio/drivers/ASoundAudioDriver.cpp.o
+.PHONY : src/audio/drivers/ASoundAudioDriver.cpp.o
+
+src/audio/drivers/ASoundAudioDriver.i: src/audio/drivers/ASoundAudioDriver.cpp.i
+
+.PHONY : src/audio/drivers/ASoundAudioDriver.i
+
+# target to preprocess a source file
+src/audio/drivers/ASoundAudioDriver.cpp.i:
+	$(MAKE) -f CMakeFiles/wasabi.dir/build.make CMakeFiles/wasabi.dir/src/audio/drivers/ASoundAudioDriver.cpp.i
+	$(MAKE) -f CMakeFiles/wasabiTest.dir/build.make CMakeFiles/wasabiTest.dir/src/audio/drivers/ASoundAudioDriver.cpp.i
+.PHONY : src/audio/drivers/ASoundAudioDriver.cpp.i
+
+src/audio/drivers/ASoundAudioDriver.s: src/audio/drivers/ASoundAudioDriver.cpp.s
+
+.PHONY : src/audio/drivers/ASoundAudioDriver.s
+
+# target to generate assembly for a file
+src/audio/drivers/ASoundAudioDriver.cpp.s:
+	$(MAKE) -f CMakeFiles/wasabi.dir/build.make CMakeFiles/wasabi.dir/src/audio/drivers/ASoundAudioDriver.cpp.s
+	$(MAKE) -f CMakeFiles/wasabiTest.dir/build.make CMakeFiles/wasabiTest.dir/src/audio/drivers/ASoundAudioDriver.cpp.s
+.PHONY : src/audio/drivers/ASoundAudioDriver.cpp.s
+
 src/main.o: src/main.cpp.o
 
 .PHONY : src/main.o
@@ -299,6 +329,9 @@ help:
 	@echo "... src/audio/Devices.o"
 	@echo "... src/audio/Devices.i"
 	@echo "... src/audio/Devices.s"
+	@echo "... src/audio/drivers/ASoundAudioDriver.o"
+	@echo "... src/audio/drivers/ASoundAudioDriver.i"
+	@echo "... src/audio/drivers/ASoundAudioDriver.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

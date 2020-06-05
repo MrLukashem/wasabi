@@ -5,13 +5,20 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/ryu/Projects/wasabi/src/audio/Devices.cpp" "/home/ryu/Projects/wasabi/build/CMakeFiles/wasabi.dir/src/audio/Devices.cpp.o"
+  "/home/ryu/Projects/wasabi/src/audio/drivers/ASoundAudioDriver.cpp" "/home/ryu/Projects/wasabi/build/CMakeFiles/wasabi.dir/src/audio/drivers/ASoundAudioDriver.cpp.o"
   "/home/ryu/Projects/wasabi/src/main.cpp" "/home/ryu/Projects/wasabi/build/CMakeFiles/wasabi.dir/src/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
+# Preprocessor definitions for this target.
+set(CMAKE_TARGET_DEFINITIONS_CXX
+  "ALSA_SUPPORTED=1"
+  )
+
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
   "../src/audio/base/include"
+  "../src/audio/drivers/include"
   "../src/audio/include"
   "../tests/include"
   )

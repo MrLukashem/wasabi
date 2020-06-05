@@ -4,5 +4,10 @@
 CMakeFiles/wasabi.dir/src/audio/Devices.cpp.o: ../src/audio/include/Devices.hpp
 CMakeFiles/wasabi.dir/src/audio/Devices.cpp.o: ../src/audio/Devices.cpp
 
+CMakeFiles/wasabi.dir/src/audio/drivers/ASoundAudioDriver.cpp.o: ../src/audio/drivers/include/AConfiguration.hpp
+CMakeFiles/wasabi.dir/src/audio/drivers/ASoundAudioDriver.cpp.o: ../src/audio/drivers/include/ASoundAudioDriver.hpp
+CMakeFiles/wasabi.dir/src/audio/drivers/ASoundAudioDriver.cpp.o: ../src/audio/drivers/include/AudioDriver.hpp
+CMakeFiles/wasabi.dir/src/audio/drivers/ASoundAudioDriver.cpp.o: ../src/audio/drivers/ASoundAudioDriver.cpp
+
 CMakeFiles/wasabi.dir/src/main.cpp.o: ../src/main.cpp
 

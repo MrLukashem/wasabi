@@ -4,6 +4,11 @@
 CMakeFiles/wasabiTest.dir/src/audio/Devices.cpp.o: ../src/audio/include/Devices.hpp
 CMakeFiles/wasabiTest.dir/src/audio/Devices.cpp.o: ../src/audio/Devices.cpp
 
+CMakeFiles/wasabiTest.dir/src/audio/drivers/ASoundAudioDriver.cpp.o: ../src/audio/drivers/include/AConfiguration.hpp
+CMakeFiles/wasabiTest.dir/src/audio/drivers/ASoundAudioDriver.cpp.o: ../src/audio/drivers/include/ASoundAudioDriver.hpp
+CMakeFiles/wasabiTest.dir/src/audio/drivers/ASoundAudioDriver.cpp.o: ../src/audio/drivers/include/AudioDriver.hpp
+CMakeFiles/wasabiTest.dir/src/audio/drivers/ASoundAudioDriver.cpp.o: ../src/audio/drivers/ASoundAudioDriver.cpp
+
 CMakeFiles/wasabiTest.dir/tests/AudioBufferTests.cpp.o: ../src/audio/base/include/AudioBuffer.hpp
 CMakeFiles/wasabiTest.dir/tests/AudioBufferTests.cpp.o: ../tests/AudioBufferTests.cpp
 CMakeFiles/wasabiTest.dir/tests/AudioBufferTests.cpp.o: ../tests/include/catch.hpp
@@ -11,7 +16,8 @@ CMakeFiles/wasabiTest.dir/tests/AudioBufferTests.cpp.o: ../tests/include/catch.h
 CMakeFiles/wasabiTest.dir/tests/StreamBuilderTests.cpp.o: ../src/audio/base/include/AudioBuffer.hpp
 CMakeFiles/wasabiTest.dir/tests/StreamBuilderTests.cpp.o: ../src/audio/base/include/AudioTypes.hpp
 CMakeFiles/wasabiTest.dir/tests/StreamBuilderTests.cpp.o: ../src/audio/base/include/TypeWrapper.hpp
-CMakeFiles/wasabiTest.dir/tests/StreamBuilderTests.cpp.o: ../src/audio/include/AudioDriver.hpp
+CMakeFiles/wasabiTest.dir/tests/StreamBuilderTests.cpp.o: ../src/audio/drivers/include/AConfiguration.hpp
+CMakeFiles/wasabiTest.dir/tests/StreamBuilderTests.cpp.o: ../src/audio/drivers/include/AudioDriver.hpp
 CMakeFiles/wasabiTest.dir/tests/StreamBuilderTests.cpp.o: ../src/audio/include/AudioPlaybackStream.hpp
 CMakeFiles/wasabiTest.dir/tests/StreamBuilderTests.cpp.o: ../src/audio/include/AudioStream.hpp
 CMakeFiles/wasabiTest.dir/tests/StreamBuilderTests.cpp.o: ../src/audio/include/Builder.hpp
