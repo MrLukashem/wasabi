@@ -147,6 +147,36 @@ wasabiTest/fast:
 	$(MAKE) -f CMakeFiles/wasabiTest.dir/build.make CMakeFiles/wasabiTest.dir/build
 .PHONY : wasabiTest/fast
 
+src/audio/AudioPlaybackStream.o: src/audio/AudioPlaybackStream.cpp.o
+
+.PHONY : src/audio/AudioPlaybackStream.o
+
+# target to build an object file
+src/audio/AudioPlaybackStream.cpp.o:
+	$(MAKE) -f CMakeFiles/wasabi.dir/build.make CMakeFiles/wasabi.dir/src/audio/AudioPlaybackStream.cpp.o
+	$(MAKE) -f CMakeFiles/wasabiTest.dir/build.make CMakeFiles/wasabiTest.dir/src/audio/AudioPlaybackStream.cpp.o
+.PHONY : src/audio/AudioPlaybackStream.cpp.o
+
+src/audio/AudioPlaybackStream.i: src/audio/AudioPlaybackStream.cpp.i
+
+.PHONY : src/audio/AudioPlaybackStream.i
+
+# target to preprocess a source file
+src/audio/AudioPlaybackStream.cpp.i:
+	$(MAKE) -f CMakeFiles/wasabi.dir/build.make CMakeFiles/wasabi.dir/src/audio/AudioPlaybackStream.cpp.i
+	$(MAKE) -f CMakeFiles/wasabiTest.dir/build.make CMakeFiles/wasabiTest.dir/src/audio/AudioPlaybackStream.cpp.i
+.PHONY : src/audio/AudioPlaybackStream.cpp.i
+
+src/audio/AudioPlaybackStream.s: src/audio/AudioPlaybackStream.cpp.s
+
+.PHONY : src/audio/AudioPlaybackStream.s
+
+# target to generate assembly for a file
+src/audio/AudioPlaybackStream.cpp.s:
+	$(MAKE) -f CMakeFiles/wasabi.dir/build.make CMakeFiles/wasabi.dir/src/audio/AudioPlaybackStream.cpp.s
+	$(MAKE) -f CMakeFiles/wasabiTest.dir/build.make CMakeFiles/wasabiTest.dir/src/audio/AudioPlaybackStream.cpp.s
+.PHONY : src/audio/AudioPlaybackStream.cpp.s
+
 src/audio/Devices.o: src/audio/Devices.cpp.o
 
 .PHONY : src/audio/Devices.o
@@ -326,6 +356,9 @@ help:
 	@echo "... wasabi"
 	@echo "... test"
 	@echo "... wasabiTest"
+	@echo "... src/audio/AudioPlaybackStream.o"
+	@echo "... src/audio/AudioPlaybackStream.i"
+	@echo "... src/audio/AudioPlaybackStream.s"
 	@echo "... src/audio/Devices.o"
 	@echo "... src/audio/Devices.i"
 	@echo "... src/audio/Devices.s"

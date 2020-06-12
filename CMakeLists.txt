@@ -15,6 +15,7 @@ include_directories(
 add_executable(wasabi
     src/main.cpp
     src/audio/Devices.cpp
+    src/audio/AudioPlaybackStream.cpp
     src/audio/drivers/ASoundAudioDriver.cpp)
 
 # libs for the linker
@@ -24,6 +25,7 @@ add_executable(wasabiTest
     tests/TypeWrapperTests.cpp
     tests/StreamBuilderTests.cpp
     src/audio/Devices.cpp
+    src/audio/AudioPlaybackStream.cpp
     src/audio/drivers/ASoundAudioDriver.cpp)
 enable_testing()
 add_test(NAME wasabiTest COMMAND wasabi)

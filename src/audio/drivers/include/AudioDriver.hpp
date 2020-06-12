@@ -2,11 +2,18 @@
 #pragma once
 
 #include "AConfiguration.hpp"
+#include "TrackData.hpp"
+
+#include <string>
+#include <memory>
+#include <functional>
 
 
 namespace wasabi {
 namespace audio {
 namespace drivers {
+
+using TrackBufferReadyCallback = std::function<void(std::shared_ptr<TrackData>)>;
 
 class AudioDriver {
 public:
@@ -15,6 +22,9 @@ public:
     virtual ~AudioDriver() = default;
 
     virtual bool setNewAConfiguration(const AConfiguration& config);
+    // TODO: recheck how a device gonna be passed to the function
+    virtual TrackHandle createAsyncTrack(const std::string& deviceName,
+        const TrackBufferReadyCallback callback);
 protected:
     AConfiguration m_config;
 };

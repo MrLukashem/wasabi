@@ -6,6 +6,12 @@
 
 #IncludeRegexTransform: 
 
+../src/audio/base/include/AudioBuffer.hpp
+stdexcept
+-
+vector
+-
+
 ../src/audio/drivers/include/AConfiguration.hpp
 
 ../src/audio/drivers/include/ASoundAudioDriver.hpp
@@ -15,6 +21,50 @@ AudioDriver.hpp
 ../src/audio/drivers/include/AudioDriver.hpp
 AConfiguration.hpp
 ../src/audio/drivers/include/AConfiguration.hpp
+TrackData.hpp
+../src/audio/drivers/include/TrackData.hpp
+string
+-
+memory
+-
+functional
+-
+
+../src/audio/drivers/include/TrackData.hpp
+TrackHandle.hpp
+../src/audio/drivers/include/TrackHandle.hpp
+string
+-
+
+../src/audio/drivers/include/TrackHandle.hpp
+
+../src/audio/include/AudioPlaybackStream.hpp
+AudioStream.hpp
+../src/audio/include/AudioStream.hpp
+AudioStreamState.hpp
+../src/audio/include/AudioStreamState.hpp
+Exceptions.hpp
+../src/audio/include/Exceptions.hpp
+memory
+-
+
+../src/audio/include/AudioStream.hpp
+functional
+-
+AudioBuffer.hpp
+../src/audio/include/AudioBuffer.hpp
+
+../src/audio/include/AudioStreamState.hpp
+AudioDriver.hpp
+../src/audio/include/AudioDriver.hpp
+
+../src/audio/include/Exceptions.hpp
+stdexcept
+-
+
+/home/ryu/Projects/wasabi/src/audio/AudioPlaybackStream.cpp
+AudioPlaybackStream.hpp
+/home/ryu/Projects/wasabi/src/audio/AudioPlaybackStream.hpp
 
 /home/ryu/Projects/wasabi/src/audio/drivers/ASoundAudioDriver.cpp
 ASoundAudioDriver.hpp
