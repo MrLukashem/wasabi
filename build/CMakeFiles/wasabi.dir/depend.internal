@@ -3,10 +3,13 @@
 
 CMakeFiles/wasabi.dir/src/audio/AudioPlaybackStream.cpp.o
  ../src/audio/base/include/AudioBuffer.hpp
+ ../src/audio/base/include/AudioTypes.hpp
+ ../src/audio/base/include/TypeWrapper.hpp
  ../src/audio/drivers/include/AConfiguration.hpp
  ../src/audio/drivers/include/AudioDriver.hpp
  ../src/audio/drivers/include/TrackData.hpp
  ../src/audio/drivers/include/TrackHandle.hpp
+ ../src/audio/include/AStreamConfiguration.hpp
  ../src/audio/include/AudioPlaybackStream.hpp
  ../src/audio/include/AudioStream.hpp
  ../src/audio/include/AudioStreamState.hpp
@@ -16,6 +19,8 @@ CMakeFiles/wasabi.dir/src/audio/Devices.cpp.o
  ../src/audio/include/Devices.hpp
  /home/ryu/Projects/wasabi/src/audio/Devices.cpp
 CMakeFiles/wasabi.dir/src/audio/drivers/ASoundAudioDriver.cpp.o
+ ../src/audio/base/include/AudioTypes.hpp
+ ../src/audio/base/include/TypeWrapper.hpp
  ../src/audio/drivers/include/AConfiguration.hpp
  ../src/audio/drivers/include/ASoundAudioDriver.hpp
  ../src/audio/drivers/include/AudioDriver.hpp

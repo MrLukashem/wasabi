@@ -1,6 +1,9 @@
 
 #pragma once
 
+#include <cstdint>
+#include <utility>
+
 
 namespace wasabi {
 namespace audio {
@@ -14,10 +17,14 @@ struct TypeWrapper {
     TypeWrapper(const TypeWrapper&) = default;
     TypeWrapper(TypeWrapper&&) = default;
 
+    ~TypeWrapper() = default;
+
+    explicit operator T() {
+        return m_value;
+    }
+
     TypeWrapper& operator= (const TypeWrapper&) = default;
     TypeWrapper& operator= (TypeWrapper&&) = default;
-
-    virtual ~TypeWrapper() = default;
 
     TypeWrapper<T, TypeTag> operator+ (const TypeWrapper<T, TypeTag>& rhs) const noexcept {
         return m_value + rhs.m_value;

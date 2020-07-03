@@ -21,9 +21,8 @@ public:
 
     virtual ~AudioDriver() = default;
 
-    virtual bool setNewAConfiguration(const AConfiguration& config);
     // TODO: recheck how a device gonna be passed to the function
-    virtual TrackHandle createAsyncTrack(const std::string& deviceName,
+    virtual TrackHandle createAsyncTrack(const AConfiguration& config,
         const TrackBufferReadyCallback callback);
 protected:
     AConfiguration m_config;

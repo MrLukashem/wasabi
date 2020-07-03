@@ -1,9 +1,8 @@
 
 #pragma once
 
+#include "AudioTypes.hpp"
 #include "TrackHandle.hpp"
-
-#include <string>
 
 
 namespace wasabi {
@@ -13,6 +12,8 @@ namespace drivers {
 struct TrackData {
     TrackHandle trackHandle;
     std::size_t bufferSize;
+    base::Channels numOfChannels;
+    base::BitDepth bitDepth;
     void const* buffer;
     /* data */
 };

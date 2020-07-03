@@ -7,27 +7,33 @@ namespace audio {
 
 using namespace base;
 
-StateType IdlePlaybackState::start() {
+StateType IdlePlaybackState::start(const AudioStreamContext* masterContext) {
     return {};
 }
 
-StateType IdlePlaybackState::stop() {
+StateType IdlePlaybackState::stop(const AudioStreamContext* masterContext) {
     return {};
 }
 
-StateType IdlePlaybackState::connect(const drivers::TrackBufferReadyCallback) {
+StateType IdlePlaybackState::connect(
+    const AudioStreamContext* masterContext,
+    const drivers::TrackBufferReadyCallback) {
     return {};
 }
 
-StateType IdlePlaybackState::pause() {
+StateType IdlePlaybackState::disconnect(const AudioStreamContext* masterContext) {
     return {};
 }
 
-StateType IdlePlaybackState::resume() {
+StateType IdlePlaybackState::pause(const AudioStreamContext* masterContext) {
     return {};
 }
 
-StateType IdlePlaybackState::flush() {
+StateType IdlePlaybackState::resume(const AudioStreamContext* masterContext) {
+    return {};
+}
+
+StateType IdlePlaybackState::flush(const AudioStreamContext* masterContext) {
     return {};
 }
 

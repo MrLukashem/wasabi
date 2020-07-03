@@ -17,12 +17,12 @@ TypeWrapper.hpp
 ../src/audio/base/include/TypeWrapper.hpp
 
 ../src/audio/base/include/TypeWrapper.hpp
+cstdint
+-
+utility
+-
 
 ../src/audio/drivers/include/AConfiguration.hpp
-
-../src/audio/drivers/include/ASoundAudioDriver.hpp
-AudioDriver.hpp
-../src/audio/drivers/include/AudioDriver.hpp
 
 ../src/audio/drivers/include/AudioDriver.hpp
 AConfiguration.hpp
@@ -37,16 +37,24 @@ functional
 -
 
 ../src/audio/drivers/include/TrackData.hpp
+AudioTypes.hpp
+../src/audio/drivers/include/AudioTypes.hpp
 TrackHandle.hpp
 ../src/audio/drivers/include/TrackHandle.hpp
-string
--
 
 ../src/audio/drivers/include/TrackHandle.hpp
+
+../src/audio/include/AStreamConfiguration.hpp
+AudioTypes.hpp
+../src/audio/include/AudioTypes.hpp
+string
+-
 
 ../src/audio/include/AudioPlaybackStream.hpp
 AudioStream.hpp
 ../src/audio/include/AudioStream.hpp
+AStreamConfiguration.hpp
+../src/audio/include/AStreamConfiguration.hpp
 AudioStreamState.hpp
 ../src/audio/include/AudioStreamState.hpp
 Exceptions.hpp
@@ -84,15 +92,9 @@ Builder.hpp
 AudioPlaybackStream.hpp
 /home/ryu/Projects/wasabi/src/audio/AudioPlaybackStream.hpp
 
-/home/ryu/Projects/wasabi/src/audio/drivers/ASoundAudioDriver.cpp
-ASoundAudioDriver.hpp
-/home/ryu/Projects/wasabi/src/audio/drivers/ASoundAudioDriver.hpp
-
 /home/ryu/Projects/wasabi/tests/StreamBuilderTests.cpp
 include/catch.hpp
 /home/ryu/Projects/wasabi/tests/include/catch.hpp
-AudioStream.hpp
-/home/ryu/Projects/wasabi/tests/AudioStream.hpp
 StreamBuilder.hpp
 /home/ryu/Projects/wasabi/tests/StreamBuilder.hpp
 

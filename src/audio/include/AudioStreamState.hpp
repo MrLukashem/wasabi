@@ -6,6 +6,9 @@
 
 namespace wasabi {
 namespace audio {
+
+struct AudioStreamContext;
+
 namespace base {
 
 enum class StateType : uint8_t {
@@ -19,22 +22,29 @@ enum class StateType : uint8_t {
 struct AudioStreamState {
     AudioStreamState() = default;
     virtual ~AudioStreamState() = default;
-    virtual StateType start() = 0;
-    virtual StateType stop() = 0;
-    virtual StateType connect(const drivers::TrackBufferReadyCallback) = 0;
-    virtual StateType pause() = 0;
-    virtual StateType resume() = 0;
-    virtual StateType flush() = 0;
+    virtual StateType start(const AudioStreamContext* masterContext) = 0;
+    virtual StateType stop(const AudioStreamContext* masterContext) = 0;
+    virtual StateType connect(
+        const AudioStreamContext* masterContext,
+        const drivers::TrackBufferReadyCallback) = 0;
+    virtual StateType disconnect(const AudioStreamContext* masterContext) = 0;
+    virtual StateType pause(const AudioStreamContext* masterContext) = 0;
+    virtual StateType resume(const AudioStreamContext* masterContext) = 0;
+    virtual StateType flush(const AudioStreamContext* masterContext) = 0;
 };
 
 class IdlePlaybackState : public AudioStreamState {
 public:
-    StateType start() override;
-    StateType stop() override;
-    StateType connect(const drivers::TrackBufferReadyCallback);
-    StateType pause() override;
-    StateType resume() override;
-    StateType flush() override;
+    StateType start(const AudioStreamContext* masterContext) override;
+    StateType stop(const AudioStreamContext* masterContext) override;
+    StateType connect(
+        const AudioStreamContext* masterContext,
+        const drivers::TrackBufferReadyCallback);
+    StateType disconnect(const AudioStreamContext* masterContext) override;
+    StateType pause(const AudioStreamContext* masterContext) override;
+    StateType resume(const AudioStreamContext* masterContext) override;
+    StateType flush(const AudioStreamContext* masterContext) override;
+
 };
 
 } // namespace base

@@ -1,7 +1,6 @@
 
 #include "include/catch.hpp"
 
-#include "AudioStream.hpp"
 #include "StreamBuilder.hpp"
 
 
