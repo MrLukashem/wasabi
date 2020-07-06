@@ -22,29 +22,51 @@ enum class StateType : uint8_t {
 struct AudioStreamState {
     AudioStreamState() = default;
     virtual ~AudioStreamState() = default;
-    virtual StateType start(const AudioStreamContext* masterContext) = 0;
-    virtual StateType stop(const AudioStreamContext* masterContext) = 0;
+    virtual StateType start(AudioStreamContext* const masterContext) = 0;
+    virtual StateType stop(AudioStreamContext* const masterContext) = 0;
     virtual StateType connect(
-        const AudioStreamContext* masterContext,
+        AudioStreamContext* const masterContext,
         const drivers::TrackBufferReadyCallback) = 0;
-    virtual StateType disconnect(const AudioStreamContext* masterContext) = 0;
-    virtual StateType pause(const AudioStreamContext* masterContext) = 0;
-    virtual StateType resume(const AudioStreamContext* masterContext) = 0;
-    virtual StateType flush(const AudioStreamContext* masterContext) = 0;
+    virtual StateType disconnect(AudioStreamContext* const masterContext) = 0;
+    virtual StateType pause(AudioStreamContext* const masterContext) = 0;
+    virtual StateType resume(AudioStreamContext* const masterContext) = 0;
+    virtual StateType flush(AudioStreamContext* const masterContext) = 0;
 };
 
-class IdlePlaybackState : public AudioStreamState {
-public:
-    StateType start(const AudioStreamContext* masterContext) override;
-    StateType stop(const AudioStreamContext* masterContext) override;
+template <typename State>
+struct DefaultPlaybackState : public AudioStreamState {
+    StateType start(AudioStreamContext* const masterContext) override {
+        return State::stateType;
+    }
+    StateType stop(AudioStreamContext* const masterContext) override {
+        return State::stateType;
+    }
     StateType connect(
-        const AudioStreamContext* masterContext,
-        const drivers::TrackBufferReadyCallback);
-    StateType disconnect(const AudioStreamContext* masterContext) override;
-    StateType pause(const AudioStreamContext* masterContext) override;
-    StateType resume(const AudioStreamContext* masterContext) override;
-    StateType flush(const AudioStreamContext* masterContext) override;
+        AudioStreamContext* const masterContext,
+        const drivers::TrackBufferReadyCallback) {
+        return State::stateType;
+    }
+    StateType disconnect(AudioStreamContext* const masterContext) override {
+        return State::stateType;
+    }
+    StateType pause(AudioStreamContext* const masterContext) override {
+        return State::stateType;
+    }
+    StateType resume(AudioStreamContext* const masterContext) override {
+        return State::stateType;
+    }
+    StateType flush(AudioStreamContext* const masterContext) override {
+        return State::stateType;
+    }
+};
 
+struct IdlePlaybackState : DefaultPlaybackState<IdlePlaybackState> {
+public:
+    static constexpr StateType stateType = StateType::Idle;
+
+    StateType connect(
+        AudioStreamContext* masterContext,
+        const drivers::TrackBufferReadyCallback) override;
 };
 
 } // namespace base

@@ -2,6 +2,7 @@
 #pragma once
 
 #include "AudioTypes.hpp"
+#include "AConfiguration.hpp"
 
 #include <string>
 
@@ -11,6 +12,10 @@ namespace audio {
 
 struct AStreamConfiguration
 {
+    explicit operator drivers::AConfiguration() {
+        return {};
+    }
+
     std::string m_deviceName;
     base::SampleRate m_sampleRate;
     base::Channels m_channels;

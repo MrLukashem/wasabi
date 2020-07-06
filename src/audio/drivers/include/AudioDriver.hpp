@@ -4,6 +4,7 @@
 #include "AConfiguration.hpp"
 #include "TrackData.hpp"
 
+#include <optional>
 #include <string>
 #include <memory>
 #include <functional>
@@ -22,7 +23,7 @@ public:
     virtual ~AudioDriver() = default;
 
     // TODO: recheck how a device gonna be passed to the function
-    virtual TrackHandle createAsyncTrack(const AConfiguration& config,
+    virtual std::optional<TrackHandle> createAsyncTrack(const AConfiguration& config,
         const TrackBufferReadyCallback callback);
 protected:
     AConfiguration m_config;

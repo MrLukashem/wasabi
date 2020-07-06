@@ -14,7 +14,7 @@ public:
     virtual ~ASoundAudioDriver() = default;
 
     // TODO: recheck how a device gonna be passed to the function
-    TrackHandle createAsyncTrack(const AConfiguration& config,
+    std::optional<TrackHandle> createAsyncTrack(const AConfiguration& config,
         TrackBufferReadyCallback callback) { return {};}
 };
 

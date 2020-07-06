@@ -67,11 +67,11 @@ public:
 
     // AudioStreamContext interface
     drivers::AudioDriver* getDriver() const noexcept override {
-        return nullptr;
+        return m_driver.get();
     }
 
     AStreamConfiguration getConfiguration() const noexcept override {
-        return {};
+        return m_config;
     }
 
     void setTrackHandle(const drivers::TrackHandle& trackHandle) noexcept override {}

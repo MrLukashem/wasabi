@@ -29,6 +29,8 @@ AConfiguration.hpp
 ../src/audio/drivers/include/AConfiguration.hpp
 TrackData.hpp
 ../src/audio/drivers/include/TrackData.hpp
+optional
+-
 string
 -
 memory
@@ -47,6 +49,8 @@ TrackHandle.hpp
 ../src/audio/include/AStreamConfiguration.hpp
 AudioTypes.hpp
 ../src/audio/include/AudioTypes.hpp
+AConfiguration.hpp
+../src/audio/include/AConfiguration.hpp
 string
 -
 
