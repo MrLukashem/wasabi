@@ -1,11 +1,16 @@
 
 #pragma once
 
-#include "AudioDriver.hpp"
+#include <memory>
 
 
 namespace wasabi {
 namespace audio {
+
+namespace drivers {
+struct TrackData;
+using TrackBufferReadyCallback = std::function<void(std::shared_ptr<TrackData>)>;
+} // namespace drivers
 
 struct AudioStreamContext;
 
@@ -15,8 +20,6 @@ enum class StateType : uint8_t {
     Idle,
     Connected,
     Running,
-    Paused,
-    Stopped,
 };
 
 struct AudioStreamState {
@@ -67,6 +70,23 @@ public:
     StateType connect(
         AudioStreamContext* masterContext,
         const drivers::TrackBufferReadyCallback) override;
+};
+
+struct ConnectedPlaybackState : DefaultPlaybackState<ConnectedPlaybackState> {
+public:
+    static constexpr StateType stateType = StateType::Connected;
+
+    StateType start(AudioStreamContext* const masterContext) override;
+    StateType disconnect(AudioStreamContext* const masterContext) override;
+};
+
+struct RunningPlaybackState : DefaultPlaybackState<RunningPlaybackState> {
+public:
+    static constexpr StateType stateType = StateType::Running;
+
+    StateType stop(AudioStreamContext* const masterContext) override;
+    StateType pause(AudioStreamContext* const masterContext) override;
+    StateType disconnect(AudioStreamContext* const masterContext) override;
 };
 
 } // namespace base

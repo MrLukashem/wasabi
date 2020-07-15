@@ -21,7 +21,6 @@ public:
     virtual void start() = 0;
     virtual void stop() = 0;
     virtual void pause() = 0;
-    virtual void resume() = 0;
     virtual void flush() = 0;
     virtual void connect(const BufferReadyCallback<SampleType> callback) = 0;
     virtual void disconnect() = 0;

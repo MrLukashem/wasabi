@@ -5,12 +5,15 @@
 #include "AStreamConfiguration.hpp"
 #include "AudioStreamState.hpp"
 #include "Exceptions.hpp"
+#include "TrackHandle.hpp"
 
 #include <memory>
 
-// TODO: forward declaration of AudioDriver
-namespace wasabi {
-namespace audio {
+namespace wasabi::audio {
+
+namespace drivers {
+class AudioDriver;
+} // namespace drivers
 
 struct AudioStreamContext {
     AudioStreamContext() = default;
@@ -18,6 +21,8 @@ struct AudioStreamContext {
 
     virtual drivers::AudioDriver* getDriver() const noexcept = 0;
     virtual AStreamConfiguration getConfiguration() const noexcept = 0;
+    virtual std::optional<drivers::TrackHandle> getTrackHandle() const noexcept = 0;
+    virtual void resetTrackHandle() noexcept = 0;
     virtual void setTrackHandle(const drivers::TrackHandle& trackHandle) noexcept = 0;
 };
 
@@ -28,7 +33,8 @@ public:
     AudioPlaybackStream() = default;
     AudioPlaybackStream(
         const AStreamConfiguration config,
-        std::shared_ptr<drivers::AudioDriver> driver): m_config{config}, m_driver{driver} {
+        std::shared_ptr<drivers::AudioDriver> driver
+    ): m_config{config}, m_driver{driver}, m_trackHandle{} {
         m_clientBuffer = base::AudioBuffer<SampleType>(m_config.m_bufferSize, m_config.m_channels);
 
         changeState(base::StateType::Idle);
@@ -53,10 +59,6 @@ public:
         changeState(m_currentState->pause(this));
     }
 
-    void resume() override {
-        changeState(m_currentState->resume(this));
-    }
-
     void flush() override {
         changeState(m_currentState->flush(this));
     }
@@ -74,7 +76,17 @@ public:
         return m_config;
     }
 
-    void setTrackHandle(const drivers::TrackHandle& trackHandle) noexcept override {}
+    std::optional<drivers::TrackHandle> getTrackHandle() const noexcept override {
+        return m_trackHandle;
+    }
+
+    void resetTrackHandle() noexcept {
+        m_trackHandle = {};
+    }
+
+    void setTrackHandle(const drivers::TrackHandle& trackHandle) noexcept override {
+        m_trackHandle = trackHandle;
+    }
 
 protected:
     void changeState(const base::StateType newState) {
@@ -83,12 +95,9 @@ protected:
             m_currentState = std::make_unique<base::IdlePlaybackState>();
             break;
         case base::StateType::Connected:
+            m_currentState = std::make_unique<base::ConnectedPlaybackState>();
             break;
         case base::StateType::Running:
-            break;
-        case base::StateType::Paused:
-            break;
-        case base::StateType::Stopped:
             break;
         default:
             m_currentState = std::make_unique<base::IdlePlaybackState>();
@@ -98,10 +107,10 @@ protected:
     }
 private:
     const AStreamConfiguration m_config{};
-    base::AudioBuffer<SampleType> m_clientBuffer;
     const std::shared_ptr<drivers::AudioDriver> m_driver;
+    base::AudioBuffer<SampleType> m_clientBuffer;
     std::unique_ptr<base::AudioStreamState> m_currentState;
+    std::optional<drivers::TrackHandle> m_trackHandle;
 };
 
-} // namespace audio
-} // namespace wasabi
+} // namespace wasabi::audio
