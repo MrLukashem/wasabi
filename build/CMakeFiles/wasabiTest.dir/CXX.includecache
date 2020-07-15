@@ -24,6 +24,10 @@ utility
 
 ../src/audio/drivers/include/AConfiguration.hpp
 
+../src/audio/drivers/include/ASoundAudioDriver.hpp
+AudioDriver.hpp
+../src/audio/drivers/include/AudioDriver.hpp
+
 ../src/audio/drivers/include/AudioDriver.hpp
 AConfiguration.hpp
 ../src/audio/drivers/include/AConfiguration.hpp
@@ -99,6 +103,10 @@ AudioPlaybackStream.hpp
 /home/lmerta/Projects/wasabi/src/audio/AudioPlaybackStream.hpp
 AudioDriver.hpp
 /home/lmerta/Projects/wasabi/src/audio/AudioDriver.hpp
+
+/home/lmerta/Projects/wasabi/src/audio/drivers/ASoundAudioDriver.cpp
+ASoundAudioDriver.hpp
+/home/lmerta/Projects/wasabi/src/audio/drivers/ASoundAudioDriver.hpp
 
 /home/lmerta/Projects/wasabi/tests/StreamBuilderTests.cpp
 include/catch.hpp
