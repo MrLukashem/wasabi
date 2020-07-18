@@ -35,6 +35,8 @@ enable_testing()
 target_link_libraries(wasabiTest gtest_main.a)
 target_link_libraries(wasabiTest gmock.a)
 target_link_libraries(wasabiTest gtest.a)
-target_link_libraries(wasabiTest pthread.a)
+
+find_package(Threads REQUIRED)
+target_link_libraries(wasabiTest Threads::Threads)
 
 add_test(NAME wasabiTest COMMAND wasabi)
