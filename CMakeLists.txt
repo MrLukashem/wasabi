@@ -10,7 +10,8 @@ include_directories(
     src/audio/base/include
     src/audio/drivers/include
     src/audio/include
-    tests/include)
+    tests/include
+    tests/mocks)
 # add the executable
 add_executable(wasabi
     src/main.cpp
@@ -20,12 +21,20 @@ add_executable(wasabi
 
 # libs for the linker
 target_link_libraries(wasabi libasound.so)
+
 add_executable(wasabiTest
     tests/AudioBufferTests.cpp
+    tests/AudioPlaybackStreamTests.cpp
     tests/TypeWrapperTests.cpp
     tests/StreamBuilderTests.cpp
     src/audio/Devices.cpp
     src/audio/AudioPlaybackStream.cpp
     src/audio/drivers/ASoundAudioDriver.cpp)
 enable_testing()
+
+target_link_libraries(wasabiTest gtest_main.a)
+target_link_libraries(wasabiTest gmock.a)
+target_link_libraries(wasabiTest gtest.a)
+target_link_libraries(wasabiTest pthread.a)
+
 add_test(NAME wasabiTest COMMAND wasabi)

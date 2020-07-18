@@ -18,18 +18,16 @@ using TrackBufferReadyCallback = std::function<void(std::shared_ptr<TrackData>)>
 
 class AudioDriver {
 public:
-    AudioDriver(const AConfiguration& config): m_config{config} {}
+    AudioDriver() = default;
     virtual ~AudioDriver() = default;
 
     // TODO: recheck how a device gonna be passed to the function
     virtual std::optional<TrackHandle> createAsyncTrack(const AConfiguration& config,
-        const TrackBufferReadyCallback callback);
-    virtual void releaseTrack(const TrackHandle& trackHandle);
-    virtual bool start(const TrackHandle& trackHandle);
-    virtual bool stop(const TrackHandle& trackHandle);
-    virtual bool pause(const TrackHandle& trackHandle);
-protected:
-    AConfiguration m_config;
+        const TrackBufferReadyCallback callback) = 0;
+    virtual void releaseTrack(const TrackHandle& trackHandle) = 0;
+    virtual bool start(const TrackHandle& trackHandle) = 0;
+    virtual bool stop(const TrackHandle& trackHandle) = 0;
+    virtual bool pause(const TrackHandle& trackHandle) = 0;
 };
 
 } // namespace drivers
