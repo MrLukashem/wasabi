@@ -33,6 +33,7 @@
 
 # Build folder
 *.cmake
-MakeFile
+Makefile
 CMakeFiles
 CMakeCache.txt
+build/*
