@@ -15,15 +15,18 @@ using namespace testing;
 
 namespace tests {
 
-std::shared_ptr<mocks::AudioDriverMock> driverMock =
-    std::shared_ptr<mocks::AudioDriverMock>();
+struct TestContext {
+    std::shared_ptr<mocks::AudioDriverMock> driverMock =
+        std::make_shared<mocks::AudioDriverMock>();
+};
 
-TEST_CASE("[AudioPlaybackStream] init", "Init") {
+TEST_CASE_METHOD(TestContext, "[AudioPlaybackStream] init", "Init") {
     AStreamConfiguration config{};
     auto stream = std::make_unique<AudioPlaybackStream<uint32_t>>(config, driverMock);
 }
 
-TEST_CASE("[AudioPlaybackStream] connect", "connect") {
+TEST_CASE_METHOD(TestContext, "[AudioPlaybackStream] connect", "connect") {
+    TestContext context;
     AStreamConfiguration config{};
     auto stream = std::make_unique<AudioPlaybackStream<uint32_t>>(config, driverMock);
     stream->connect([] (auto& buffer) { });
@@ -32,7 +35,8 @@ TEST_CASE("[AudioPlaybackStream] connect", "connect") {
     REQUIRE(stream->getState() == StateType::Connected);
 }
 
-TEST_CASE("[AudioPlaybackStream] start", "start") {
+TEST_CASE_METHOD(TestContext, "[AudioPlaybackStream] start", "start") {
+    TestContext context;
     AStreamConfiguration config{};
     auto stream = std::make_unique<AudioPlaybackStream<uint32_t>>(config, driverMock);
     stream->connect([] (auto& buffer) { });
