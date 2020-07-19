@@ -26,16 +26,35 @@ public:
 
     AudioBuffer(AudioBuffer&& buffer) {
         m_data = std::move(buffer.m_data);
-        m_length = buffer.m_length;
-        m_currentSample = buffer.m_currentSample;
-        m_currentChannel = buffer.m_currentChannel;
+        setup(buffer);
     }
 
     AudioBuffer(const AudioBuffer& buffer) {
         m_data = buffer.m_data;
+        setup(buffer);
     }
 
     virtual ~AudioBuffer() = default;
+
+    AudioBuffer& operator= (AudioBuffer&& buffer) {
+        m_data = std::move(buffer.m_data);
+        setup(buffer);
+
+        return *this;
+    }
+
+    AudioBuffer& operator= (const AudioBuffer& buffer) {
+        m_data = buffer.m_data;
+        setup(buffer);
+
+        return *this;
+    }
+
+    void setup(const AudioBuffer& buffer) {
+        m_length = buffer.m_length;
+        m_currentSample = buffer.m_currentSample;
+        m_currentChannel = buffer.m_currentChannel;
+    }
 
     SampleProxy operator[] (const uint32_t n) {
         return SampleProxy(n, *this);

@@ -3,7 +3,10 @@ cmake_minimum_required(VERSION 3.10)
 
 # set the project name
 project(wasabi)
+
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_BUILD_TYPE Debug)
+
 add_definitions(-DALSA_SUPPORTED=1)
 
 include_directories(

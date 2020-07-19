@@ -3,7 +3,6 @@
 
 #include "AudioStream.hpp"
 #include "AStreamConfiguration.hpp"
-#include "AudioStreamState.hpp"
 #include "Exceptions.hpp"
 #include "TrackHandle.hpp"
 
@@ -14,6 +13,8 @@ namespace wasabi::audio {
 namespace drivers {
 class AudioDriver;
 } // namespace drivers
+
+using base::StateType;
 
 struct AudioStreamContext {
     AudioStreamContext() = default;
@@ -35,7 +36,8 @@ public:
         const AStreamConfiguration config,
         std::shared_ptr<drivers::AudioDriver> driver
     ): m_config{config}, m_driver{driver}, m_trackHandle{} {
-        m_clientBuffer = base::AudioBuffer<SampleType>(m_config.m_bufferSize, m_config.m_channels);
+        m_clientBuffer = base::AudioBuffer<SampleType>(
+            m_config.m_bufferSize, m_config.m_channels.m_value);
 
         changeState(base::StateType::Idle);
     }
@@ -67,6 +69,10 @@ public:
         changeState(m_currentState->disconnect(this));
     }
 
+    base::StateType getState() {
+        return m_stateType;
+    }
+
     // AudioStreamContext interface
     drivers::AudioDriver* getDriver() const noexcept override {
         return m_driver.get();
@@ -93,14 +99,18 @@ protected:
         switch (newState) {
         case base::StateType::Idle:
             m_currentState = std::make_unique<base::IdlePlaybackState>();
+            m_stateType = base::StateType::Idle;
             break;
         case base::StateType::Connected:
             m_currentState = std::make_unique<base::ConnectedPlaybackState>();
+            m_stateType = base::StateType::Connected;
             break;
         case base::StateType::Running:
+            m_stateType = base::StateType::Running;
             break;
         default:
             m_currentState = std::make_unique<base::IdlePlaybackState>();
+            m_stateType = base::StateType::Idle;
             throw base::StateException{"Unregognized state. Internal wasabi error."};
             break;
         }
@@ -110,6 +120,7 @@ private:
     const std::shared_ptr<drivers::AudioDriver> m_driver;
     base::AudioBuffer<SampleType> m_clientBuffer;
     std::unique_ptr<base::AudioStreamState> m_currentState;
+    base::StateType m_stateType;
     std::optional<drivers::TrackHandle> m_trackHandle;
 };
 

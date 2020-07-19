@@ -7,7 +7,7 @@ namespace base {
 
 using SampleRate = TypeWrapper<uint32_t, struct SampleRateTag>;
 using BitDepth = TypeWrapper<uint8_t, struct BitDepthTag>;
-using Channels = TypeWrapper<uint32_t, struct ChannelsTag>;
+using Channels = TypeWrapper<uint8_t, struct ChannelsTag>;
 using Volume = TypeWrapper<float, struct VolumeTag>;
 
 } // namespace base

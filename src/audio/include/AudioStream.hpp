@@ -4,7 +4,7 @@
 #include <functional>
 
 #include "AudioBuffer.hpp"
-
+#include "AudioStreamState.hpp"
 
 namespace wasabi {
 namespace audio {
@@ -24,6 +24,7 @@ public:
     virtual void flush() = 0;
     virtual void connect(const BufferReadyCallback<SampleType> callback) = 0;
     virtual void disconnect() = 0;
+    virtual base::StateType getState() = 0;
 };
 
 } // namespace audio
