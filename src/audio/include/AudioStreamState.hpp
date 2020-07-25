@@ -34,6 +34,7 @@ struct AudioStreamState {
     virtual StateType pause(AudioStreamContext* const masterContext) = 0;
     virtual StateType resume(AudioStreamContext* const masterContext) = 0;
     virtual StateType flush(AudioStreamContext* const masterContext) = 0;
+    virtual StateType getMyState() const = 0;
 };
 
 template <typename State>
@@ -61,6 +62,9 @@ struct DefaultPlaybackState : public AudioStreamState {
     StateType flush(AudioStreamContext* const masterContext) override {
         return State::stateType;
     }
+    StateType getMyState() const override {
+        return State::stateType;
+    }
 };
 
 struct IdlePlaybackState : DefaultPlaybackState<IdlePlaybackState> {
@@ -84,6 +88,9 @@ struct RunningPlaybackState : DefaultPlaybackState<RunningPlaybackState> {
 public:
     static constexpr StateType stateType = StateType::Running;
 
+    StateType connect(
+        AudioStreamContext* masterContext,
+        const drivers::TrackBufferReadyCallback) override;
     StateType stop(AudioStreamContext* const masterContext) override;
     StateType pause(AudioStreamContext* const masterContext) override;
     StateType disconnect(AudioStreamContext* const masterContext) override;

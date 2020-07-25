@@ -11,7 +11,7 @@ namespace drivers {
 class ASoundAudioDriver : public AudioDriver {
 public:
     ASoundAudioDriver(const AConfiguration& config);
-    virtual ~ASoundAudioDriver() = default;
+    ~ASoundAudioDriver() = default;
 
     // TODO: recheck how a device gonna be passed to the function
     std::optional<TrackHandle> createAsyncTrack(const AConfiguration& config,

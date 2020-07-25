@@ -12,7 +12,7 @@ namespace audio {
 
 struct AStreamConfiguration
 {
-    explicit operator drivers::AConfiguration() {
+    explicit operator drivers::AConfiguration() const {
         return {};
     }
 

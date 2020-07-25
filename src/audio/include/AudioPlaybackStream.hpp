@@ -69,11 +69,13 @@ public:
         changeState(m_currentState->disconnect(this));
     }
 
-    base::StateType getState() {
-        return m_stateType;
+    base::StateType getState() const override {
+        return m_currentState->getMyState();
     }
 
-    // AudioStreamContext interface
+    /*
+        AudioStreamContext interface
+    */
     drivers::AudioDriver* getDriver() const noexcept override {
         return m_driver.get();
     }
@@ -99,28 +101,23 @@ protected:
         switch (newState) {
         case base::StateType::Idle:
             m_currentState = std::make_unique<base::IdlePlaybackState>();
-            m_stateType = base::StateType::Idle;
             break;
         case base::StateType::Connected:
             m_currentState = std::make_unique<base::ConnectedPlaybackState>();
-            m_stateType = base::StateType::Connected;
             break;
         case base::StateType::Running:
-            m_stateType = base::StateType::Running;
+            m_currentState = std::make_unique<base::RunningPlaybackState>();
             break;
         default:
             m_currentState = std::make_unique<base::IdlePlaybackState>();
-            m_stateType = base::StateType::Idle;
             throw base::StateException{"Unregognized state. Internal wasabi error."};
-            break;
         }
     }
 private:
     const AStreamConfiguration m_config{};
     const std::shared_ptr<drivers::AudioDriver> m_driver;
-    base::AudioBuffer<SampleType> m_clientBuffer;
     std::unique_ptr<base::AudioStreamState> m_currentState;
-    base::StateType m_stateType;
+    base::AudioBuffer<SampleType> m_clientBuffer;
     std::optional<drivers::TrackHandle> m_trackHandle;
 };
 
