@@ -8,6 +8,7 @@
 
 #include <memory>
 
+
 namespace wasabi::audio {
 
 namespace drivers {
@@ -95,7 +96,6 @@ public:
     void setTrackHandle(const drivers::TrackHandle& trackHandle) noexcept override {
         m_trackHandle = trackHandle;
     }
-
 protected:
     void changeState(const base::StateType newState) {
         switch (newState) {

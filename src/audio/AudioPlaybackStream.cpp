@@ -2,9 +2,14 @@
 #include "AudioPlaybackStream.hpp"
 
 #include "AudioDriver.hpp"
+#include "BasicLogger.hpp"
 
 
 namespace wasabi::audio {
+
+namespace {
+utils::BasicLogger logger("AudioPlaybackStream");
+} //anymouns namespace
 
 using namespace base;
 
@@ -15,6 +20,7 @@ StateType IdlePlaybackState::connect(AudioStreamContext* const masterContext,
         static_cast<drivers::AConfiguration>(masterContext->getConfiguration()), callback);
 
     if (!trackHandleOpt) {
+        logger.critical("createAsyncTrack failed. Switching to Idle state");
         return StateType::Idle;
     }
 
@@ -26,10 +32,12 @@ StateType IdlePlaybackState::connect(AudioStreamContext* const masterContext,
 StateType ConnectedPlaybackState::start(AudioStreamContext* const masterContext) {
     const auto& trackHandleOpt = masterContext->getTrackHandle();
     if (!trackHandleOpt) {
+        logger.critical("No track handle in ConnectedState. Switching to Idle state");
         return StateType::Idle;
     }
 
     if (!masterContext->getDriver()->start(*trackHandleOpt)) {
+        logger.error("Start failed. Please reconfigure the stream or restart once again");
         return StateType::Connected;
     }
 
@@ -50,17 +58,16 @@ StateType RunningPlaybackState::connect(AudioStreamContext* const masterContext,
     const drivers::TrackBufferReadyCallback callback
 ) {
     const auto& oldTrackHandleOpt = masterContext->getTrackHandle();
-    const bool isStopped = masterContext->getDriver()->stop(*oldTrackHandleOpt);
-    masterContext->getDriver()->releaseTrack(*oldTrackHandleOpt);
-    masterContext->resetTrackHandle();
-
-    if (!isStopped) {
-        return StateType::Idle;
+    if (oldTrackHandleOpt) {
+        masterContext->getDriver()->stop(*oldTrackHandleOpt);
+        masterContext->getDriver()->releaseTrack(*oldTrackHandleOpt);
+        masterContext->resetTrackHandle();
     }
 
     const auto& trackHandleOpt = masterContext->getDriver()->createAsyncTrack(
         static_cast<drivers::AConfiguration>(masterContext->getConfiguration()), callback);
     if (!trackHandleOpt) {
+        logger.critical("createAsyncTrack failed. Switching to Idle state");
         return StateType::Idle;
     }
 
@@ -81,7 +88,7 @@ StateType RunningPlaybackState::disconnect(AudioStreamContext* const masterConte
 StateType RunningPlaybackState::stop(AudioStreamContext* const masterContext) {
     const auto& trackHandleOpt = masterContext->getTrackHandle();
     if (!trackHandleOpt) {
-        // TODO: to think how to handle no track found case.
+        logger.critical("No track handle in RunningState. Switching to Idle state");
         return StateType::Idle;
     }
 
@@ -95,11 +102,12 @@ StateType RunningPlaybackState::stop(AudioStreamContext* const masterContext) {
 StateType RunningPlaybackState::pause(AudioStreamContext* const masterContext) {
     const auto& trackHandleOpt = masterContext->getTrackHandle();
     if (!trackHandleOpt) {
-        // TODO: to think how to handle no track found case.
+        logger.critical("No track handle in RunningState. Switching to Idle state");
         return StateType::Idle;
     }
 
     if (!masterContext->getDriver()->pause(*trackHandleOpt)) {
+        logger.error("Pause failed. Releasing track and returning to IdleState");
         masterContext->getDriver()->releaseTrack(*trackHandleOpt);
         masterContext->resetTrackHandle();
         return StateType::Idle;

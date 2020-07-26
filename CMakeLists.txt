@@ -7,14 +7,22 @@ project(wasabi)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_BUILD_TYPE Debug)
 
+if(NOT TARGET spdlog)
+    # Stand-alone build
+    add_subdirectory(${CMAKE_SOURCE_DIR}/externals/spdlog)
+    #find_package(spdlog REQUIRED PATHS ${CMAKE_SOURCE_DIR}/externals/spdlog NO_DEFAULT_PATH)
+endif()
+
 add_definitions(-DALSA_SUPPORTED=1)
 
 include_directories(
     src/audio/base/include
     src/audio/drivers/include
     src/audio/include
+    src/audio/utils/include
     tests/include
-    tests/mocks)
+    tests/mocks
+    externals/spdlog/include)
 # add the executable
 add_executable(wasabi
     src/main.cpp
@@ -24,6 +32,7 @@ add_executable(wasabi
 
 # libs for the linker
 target_link_libraries(wasabi libasound.so)
+#target_link_libraries(wasabi PRIVATE spdlog::spdlog)
 
 add_executable(wasabiTest
     tests/AudioBufferTests.cpp
@@ -33,6 +42,7 @@ add_executable(wasabiTest
     src/audio/Devices.cpp
     src/audio/AudioPlaybackStream.cpp
     src/audio/drivers/ASoundAudioDriver.cpp)
+
 enable_testing()
 
 target_link_libraries(wasabiTest gtest_main.a)
