@@ -20,6 +20,7 @@ public:
     bool start(const TrackHandle& trackHandle) override { return {}; }
     bool stop(const TrackHandle& trackHandle) override { return {}; }
     bool pause(const TrackHandle& trackHandle) override { return {}; }
+    bool flush(const TrackHandle& trackHandle) override { return {}; }
 };
 
 } // namespace drivers

@@ -213,5 +213,60 @@ TEST_CASE_METHOD(TestContext, "ConnectedState tests", "[AudioPlaybackStream]") {
     }
 }
 
+TEST_CASE_METHOD(TestContext, "RunningState tests", "[AudioPlaybackStream]") {
+    auto stream = std::make_unique<AudioPlaybackStream<uint32_t>>(config, driverMock);
+    auto trackHandle = generateTrackHandle();
+    EXPECT_CALL(*driverMock, createAsyncTrack(ConfigMatcher(config), _)).WillOnce(Return(trackHandle));
+    EXPECT_CALL(*driverMock, start(TrackHandleMatcher(trackHandle))).WillOnce(Return(true));
+    stream->connect([] (auto&) {});
+    stream->start();
+    REQUIRE(*stream == StateType::Running);
+
+    SECTION("Running::start") {
+        stream->start();
+        REQUIRE(*stream == StateType::Running);
+    }
+
+    SECTION("Running::stop") {
+        EXPECT_CALL(*driverMock, stop(TrackHandleMatcher(trackHandle))).WillOnce(Return(true));
+        stream->stop();
+        REQUIRE(*stream == StateType::Connected);
+    }
+
+    SECTION("Running::stop failed") {
+        EXPECT_CALL(*driverMock, releaseTrack(TrackHandleMatcher(trackHandle)));
+        EXPECT_CALL(*driverMock, stop(TrackHandleMatcher(trackHandle))).WillOnce(Return(false));
+        stream->stop();
+        REQUIRE(*stream == StateType::Idle);
+    }
+
+    SECTION("Running::connect") {
+        EXPECT_CALL(*driverMock, stop(TrackHandleMatcher(trackHandle))).WillOnce(Return(true));
+        EXPECT_CALL(*driverMock, createAsyncTrack(ConfigMatcher(config), _))
+            .WillOnce(Return(generateTrackHandle()));
+        EXPECT_CALL(*driverMock, releaseTrack(TrackHandleMatcher(trackHandle)));
+        stream->connect([] (auto&) {});
+        REQUIRE(*stream == StateType::Connected);
+    }
+
+    SECTION("Running::pause") {
+        EXPECT_CALL(*driverMock, pause(TrackHandleMatcher(trackHandle))).WillOnce(Return(true));
+        stream->pause();
+        REQUIRE(*stream == StateType::Connected);
+    }
+
+    SECTION("Running::flush") {
+        EXPECT_CALL(*driverMock, flush(TrackHandleMatcher(trackHandle))).WillOnce(Return(true));
+        stream->flush();
+        REQUIRE(*stream == StateType::Running);
+    }
+
+    SECTION("Running::diconnect") {
+        EXPECT_CALL(*driverMock, releaseTrack(TrackHandleMatcher(trackHandle)));
+        stream->disconnect();
+        REQUIRE(*stream == StateType::Idle);
+    }
+}
+
 } // namespace tests
 } // namespace wasabi

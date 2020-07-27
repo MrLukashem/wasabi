@@ -115,10 +115,25 @@ StateType RunningPlaybackState::pause(AudioStreamContext* const masterContext) {
 
     if (!masterContext->getDriver()->pause(*trackHandleOpt)) {
         logger.error("Pause failed. Releasing track and returning to IdleState");
-        return doDisconnect(masterContext);
+        return disconnect(masterContext);
     }
 
     return StateType::Connected;
+}
+
+StateType RunningPlaybackState::flush(AudioStreamContext* const masterContext) {
+    const auto& trackHandleOpt = masterContext->getTrackHandle();
+    if (!trackHandleOpt) {
+        logger.critical("No track handle in RunningState. Switching to Idle state");
+        return StateType::Idle;
+    }
+
+    if (!masterContext->getDriver()->flush(*trackHandleOpt)) {
+        logger.error("Flush failed. Releasing track and returning to IdleState");
+        return disconnect(masterContext);
+    }
+
+    return StateType::Running;
 }
 
 } // namespace wasabi::audio

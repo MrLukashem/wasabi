@@ -96,6 +96,7 @@ public:
         const drivers::TrackBufferReadyCallback) override;
     StateType stop(AudioStreamContext* const masterContext) override;
     StateType pause(AudioStreamContext* const masterContext) override;
+    StateType flush(AudioStreamContext* const masterContext) override;
     StateType disconnect(AudioStreamContext* const masterContext) override;
 };
 

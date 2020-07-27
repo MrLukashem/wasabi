@@ -28,6 +28,7 @@ public:
     virtual bool start(const TrackHandle& trackHandle) = 0;
     virtual bool stop(const TrackHandle& trackHandle) = 0;
     virtual bool pause(const TrackHandle& trackHandle) = 0;
+    virtual bool flush(const TrackHandle& trackHandle) = 0;
 };
 
 } // namespace drivers
