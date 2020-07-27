@@ -81,6 +81,9 @@ public:
     static constexpr StateType stateType = StateType::Connected;
 
     StateType start(AudioStreamContext* const masterContext) override;
+    StateType connect(
+        AudioStreamContext* masterContext,
+        const drivers::TrackBufferReadyCallback) override;
     StateType disconnect(AudioStreamContext* const masterContext) override;
 };
 
