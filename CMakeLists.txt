@@ -37,6 +37,7 @@ target_link_libraries(wasabi libasound.so)
 add_executable(wasabiTest
     tests/AudioBufferTests.cpp
     tests/AudioPlaybackStreamTests.cpp
+    tests/ASoundDriverTests.cpp
     tests/TypeWrapperTests.cpp
     tests/StreamBuilderTests.cpp
     src/audio/Devices.cpp
@@ -45,6 +46,7 @@ add_executable(wasabiTest
 
 enable_testing()
 
+target_link_libraries(wasabiTest libasound.so)
 target_link_libraries(wasabiTest gtest_main.a)
 target_link_libraries(wasabiTest gmock.a)
 target_link_libraries(wasabiTest gtest.a)
