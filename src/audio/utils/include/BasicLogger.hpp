@@ -30,7 +30,7 @@ public:
     }
 
     template <typename T>
-    void warn(const T& msg) {
+    void warn(const T&msg) {
         m_logger->warn(msg);
     }
 

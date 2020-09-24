@@ -147,6 +147,19 @@ wasabi/fast:
 	$(MAKE) -f CMakeFiles/wasabi.dir/build.make CMakeFiles/wasabi.dir/build
 .PHONY : wasabi/fast
 
+#=============================================================================
+# Target rules for targets named spdlog
+
+# Build rule for target.
+spdlog: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 spdlog
+.PHONY : spdlog
+
+# fast build rule for target.
+spdlog/fast:
+	$(MAKE) -f externals/spdlog/CMakeFiles/spdlog.dir/build.make externals/spdlog/CMakeFiles/spdlog.dir/build
+.PHONY : spdlog/fast
+
 src/audio/AudioPlaybackStream.o: src/audio/AudioPlaybackStream.cpp.o
 
 .PHONY : src/audio/AudioPlaybackStream.o
@@ -263,6 +276,33 @@ src/main.s: src/main.cpp.s
 src/main.cpp.s:
 	$(MAKE) -f CMakeFiles/wasabi.dir/build.make CMakeFiles/wasabi.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
+
+tests/ASoundDriverTests.o: tests/ASoundDriverTests.cpp.o
+
+.PHONY : tests/ASoundDriverTests.o
+
+# target to build an object file
+tests/ASoundDriverTests.cpp.o:
+	$(MAKE) -f CMakeFiles/wasabiTest.dir/build.make CMakeFiles/wasabiTest.dir/tests/ASoundDriverTests.cpp.o
+.PHONY : tests/ASoundDriverTests.cpp.o
+
+tests/ASoundDriverTests.i: tests/ASoundDriverTests.cpp.i
+
+.PHONY : tests/ASoundDriverTests.i
+
+# target to preprocess a source file
+tests/ASoundDriverTests.cpp.i:
+	$(MAKE) -f CMakeFiles/wasabiTest.dir/build.make CMakeFiles/wasabiTest.dir/tests/ASoundDriverTests.cpp.i
+.PHONY : tests/ASoundDriverTests.cpp.i
+
+tests/ASoundDriverTests.s: tests/ASoundDriverTests.cpp.s
+
+.PHONY : tests/ASoundDriverTests.s
+
+# target to generate assembly for a file
+tests/ASoundDriverTests.cpp.s:
+	$(MAKE) -f CMakeFiles/wasabiTest.dir/build.make CMakeFiles/wasabiTest.dir/tests/ASoundDriverTests.cpp.s
+.PHONY : tests/ASoundDriverTests.cpp.s
 
 tests/AudioBufferTests.o: tests/AudioBufferTests.cpp.o
 
@@ -383,6 +423,7 @@ help:
 	@echo "... test"
 	@echo "... wasabiTest"
 	@echo "... wasabi"
+	@echo "... spdlog"
 	@echo "... src/audio/AudioPlaybackStream.o"
 	@echo "... src/audio/AudioPlaybackStream.i"
 	@echo "... src/audio/AudioPlaybackStream.s"
@@ -395,6 +436,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... tests/ASoundDriverTests.o"
+	@echo "... tests/ASoundDriverTests.i"
+	@echo "... tests/ASoundDriverTests.s"
 	@echo "... tests/AudioBufferTests.o"
 	@echo "... tests/AudioBufferTests.i"
 	@echo "... tests/AudioBufferTests.s"

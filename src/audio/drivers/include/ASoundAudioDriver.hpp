@@ -1,5 +1,5 @@
 
-//#ifdef ALSA_SUPPORTED
+#ifdef ALSA_SUPPORTED
 
 #include "AudioDriver.hpp"
 
@@ -38,4 +38,4 @@ private:
 } // namespace audio
 } // namespace wasabi
 
-//#endif
+#endif
