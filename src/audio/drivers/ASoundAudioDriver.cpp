@@ -16,6 +16,11 @@ utils::BasicLogger logger{"ASoundAudioDriver"};
 
 snd_pcm_hw_params_t* prepareHardwareParams(snd_pcm_t*, const drivers::AConfiguration&);
 snd_pcm_sw_params_t* prepareSoftwareParams(snd_pcm_t*, const drivers::AConfiguration&);
+
+// TODO: implement the function
+snd_pcm_format_t toAlsaFormat(const drivers::AConfiguration::AudioFormat format) {
+    return SND_PCM_FORMAT_U16;
+}
 } // namespace anonymous
 
 namespace drivers {
@@ -26,7 +31,7 @@ ASoundAudioDriver::ASoundAudioDriver() {
 std::optional<TrackHandle> ASoundAudioDriver::createAsyncTrack(const AConfiguration& config,
     TrackBufferReadyCallback callback
 ) {
-    AudioTrack track{nullptr, {}};
+    AudioTrack track{};;
     if (snd_pcm_open(&track.handle, "default", SND_PCM_STREAM_PLAYBACK, 0) < 0) {
         logger.error("snd_pcm_open failed");
         return {};
@@ -66,28 +71,35 @@ snd_pcm_hw_params_t* prepareHardwareParams(
     }
 
     if (snd_pcm_hw_params_set_rate_resample(
-        handle, params, static_cast<uint32_t>(config.isResamplingAllowed ? 1 : 0))
+        handle, params, static_cast<uint32_t>(config.isResamplingAllowed))
     ) {
+        logger.error("Set allowed resampling to "
+            + std::to_string(config.isResamplingAllowed) + "failed");
         return nullptr;
     }
 
     if (snd_pcm_hw_params_set_access(handle, params, SND_PCM_ACCESS_RW_INTERLEAVED)) {
+        logger.error("snd_pcm_hw_params_set_access failed");
         return nullptr;
     }
 
-    if (snd_pcm_hw_params_set_format(handle, params, config.format)) {
+    if (snd_pcm_hw_params_set_format(handle, params, toAlsaFormat(config.format))) {
+        logger.error("Set audio format failed");
         return nullptr;
     }
 
-    if (snd_pcm_hw_params_set_channels(handle, params, config,numOfChannels)) {
+    if (snd_pcm_hw_params_set_channels(handle, params, config.numOfChannels)) {
+        logger.error("Set number of channles = " + std::string(conig.numOfChannels) + "failed");
         return nullptr;
     }
 
     uint32_t targetRate = config.rate;
     if (snd_pcm_hw_params_set_rate_near(handle, params, &targetRate, nullptr)) {
+        logger.error("Setting sample rate failed");
         return nullptr;
     }
     if (targetRate != config.rate) {
+        logger.error("target rate differ then allowed by alsa driver failed");
         return nullptr;
     }
 

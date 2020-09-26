@@ -1,6 +1,8 @@
 
 #pragma once
 
+#include <stdint.h>
+
 
 namespace wasabi {
 namespace audio {
@@ -10,8 +12,10 @@ struct AConfiguration
 {
     enum class AudioFormat {
     };
-    bool isResamplingAllowed = false;
-    uint32_t numOfChannles;
+
+    bool isResamplingAllowed;
+    uint32_t numOfChannels;
+    uint32_t rate;
     AudioFormat format;
     // TODO: implementation od the structure
     bool operator==(const AConfiguration& rhs) const {
