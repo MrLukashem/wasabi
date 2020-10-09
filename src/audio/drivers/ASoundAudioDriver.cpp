@@ -25,6 +25,7 @@ snd_pcm_sw_params_t* prepareSoftwareParams(snd_pcm_t*, const drivers::AConfigura
 snd_pcm_format_t toAlsaFormat(const drivers::AConfiguration::AudioFormat format) {
     return SND_PCM_FORMAT_U16;
 }
+bool isPauseSupported(snd_pcm_t* handle);
 
 } // namespace anonymous
 
@@ -55,9 +56,8 @@ std::optional<TrackHandle> ASoundAudioDriver::createAsyncTrack(const AConfigurat
         return {};
     }
 
-    snd_async_handler_t* asyncHandler = nullptr;
     track.alsaAsyncCallback = [] (auto* handler) {};
-    if (snd_async_add_pcm_handler(&asyncHandler, track.handle,
+    if (snd_async_add_pcm_handler(&track.asyncHandler, track.handle,
         *track.alsaAsyncCallback.target<void(*)(snd_async_handler_t*)>(), nullptr) < 0
     ) {
         logger.error("registering async callback failed");
@@ -80,7 +80,7 @@ void ASoundAudioDriver::releaseTrack(const TrackHandle& trackHandle) {
 bool ASoundAudioDriver::start(const TrackHandle& trackHandle) const {
     const auto* track = findTrack(trackHandle);
     if (track == nullptr || snd_pcm_start(track->handle) < 0) {
-        logger.warn("No track found. No one started.");
+        logger.warn("No track found. No one to started");
         return false;
     }
 
@@ -88,15 +88,44 @@ bool ASoundAudioDriver::start(const TrackHandle& trackHandle) const {
 }
 
 bool ASoundAudioDriver::stop(const TrackHandle& trackHandle) {
-    return false;
+    const auto* track = findTrack(trackHandle);
+    if (track == nullptr || snd_pcm_drain(track->handle) < 0) {
+        logger.warn("No track found. No one to stopped");
+        return false;
+    }
+
+    return true;
 }
 
 bool ASoundAudioDriver::pause(const TrackHandle& trackHandle) {
-    return false;
+    const auto* track = findTrack(trackHandle);
+    if (track == nullptr) {
+        logger.warn("No track found");
+        return false;
+    }
+
+    if (isPauseSupported(track->handle)) {
+        const int doPause = 1;
+        if (snd_pcm_pause(track->handle, doPause) < 0) {
+            logger.warn("No track found. No one to pause");
+            return false;
+        }
+    } else {
+        // TODO: workaround method to pause the stream
+        return false;
+    }
+
+    return true;
 }
 
 bool ASoundAudioDriver::flush(const TrackHandle& trackHandle) {
-    return false;
+    const auto* track = findTrack(trackHandle);
+    if (track == nullptr || snd_pcm_reset(track->handle) < 0) {
+        logger.warn("No track found or cannot flush the track");
+        return false;
+    }
+
+    return true;
 }
 
 const ASoundAudioDriver::AudioTrack* ASoundAudioDriver::findTrack(
@@ -168,6 +197,12 @@ snd_pcm_sw_params_t* prepareSoftwareParams(
     snd_pcm_sw_params_t* params{};
     snd_pcm_sw_params_alloca(&params);
     return params;
+}
+
+bool isPauseSupported(snd_pcm_t* handle) {
+    snd_pcm_hw_params_t* hwParams{};
+    return snd_pcm_hw_params_current(handle, hwParams) == 0
+        && snd_pcm_hw_params_can_pause(hwParams) == 0;
 }
 
 } // namespace anonymous

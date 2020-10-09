@@ -29,7 +29,7 @@ public:
 private:
     struct AudioTrack {
         snd_pcm_t* handle;
-        snd_async_handler_t* ayncHandler;
+        snd_async_handler_t* asyncHandler;
         TrackHandleBase userHandleBase;
         std::shared_ptr<TrackData> trackUserData;
         std::function<void(snd_async_handler_t*)> alsaAsyncCallback;
