@@ -100,14 +100,14 @@ bool ASoundAudioDriver::stop(const TrackHandle& trackHandle) {
 bool ASoundAudioDriver::pause(const TrackHandle& trackHandle) {
     const auto* track = findTrack(trackHandle);
     if (track == nullptr) {
-        logger.warn("No track found");
+        logger.warn("No track found with id = {}", trackHandle);
         return false;
     }
 
     if (isPauseSupported(track->handle)) {
         const int doPause = 1;
         if (snd_pcm_pause(track->handle, doPause) < 0) {
-            logger.warn("No track found. No one to pause");
+            logger.warn("No possible to pause track with id = {}", trackHandle);
             return false;
         }
     } else {
