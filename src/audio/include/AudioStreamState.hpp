@@ -9,7 +9,7 @@ namespace audio {
 
 namespace drivers {
 struct TrackData;
-using TrackBufferReadyCallback = std::function<void(std::shared_ptr<TrackData>)>;
+using TrackBufferReadyCallback = std::function<void(TrackData&)>;
 } // namespace drivers
 
 struct AudioStreamContext;

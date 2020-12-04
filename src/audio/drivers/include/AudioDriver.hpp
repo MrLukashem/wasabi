@@ -1,6 +1,7 @@
 
 #pragma once
 
+#include "AudioBuffer.hpp"
 #include "AConfiguration.hpp"
 #include "TrackData.hpp"
 
@@ -14,7 +15,7 @@ namespace wasabi {
 namespace audio {
 namespace drivers {
 
-using TrackBufferReadyCallback = std::function<void(std::shared_ptr<TrackData>)>;
+using TrackBufferReadyCallback = std::function<void(TrackData&)>;
 
 class AudioDriver {
 public:
@@ -26,10 +27,13 @@ public:
     AudioDriver& operator=(const AudioDriver&) = delete;
 
     // TODO: recheck how a device gonna be passed to the function
-    virtual std::optional<TrackHandle> createAsyncTrack(const AConfiguration& config,
+    virtual std::optional<TrackHandle> createAsyncTrack(
+        const AConfiguration& config,
+        const base::AudioBuffer<std::byte>& clientBuffer,
         const TrackBufferReadyCallback callback) = 0;
     virtual void releaseTrack(const TrackHandle& trackHandle) = 0;
     virtual bool start(const TrackHandle& trackHandle) const = 0;
+    virtual bool resume(const TrackHandle& trackHadle) = 0;
     virtual bool stop(const TrackHandle& trackHandle) = 0;
     virtual bool pause(const TrackHandle& trackHandle) = 0;
     virtual bool flush(const TrackHandle& trackHandle) = 0;

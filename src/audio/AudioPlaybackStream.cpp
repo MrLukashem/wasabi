@@ -14,9 +14,13 @@ namespace {
 utils::BasicLogger logger("AudioPlaybackStream");
 
 StateType doConnect(
-    AudioStreamContext* const masterContext, const drivers::TrackBufferReadyCallback callback) {
+    AudioStreamContext* const masterContext,
+    drivers::TrackBufferReadyCallback callback
+) {
     const auto& trackHandleOpt = masterContext->getDriver()->createAsyncTrack(
-        static_cast<drivers::AConfiguration>(masterContext->getConfiguration()), callback);
+        static_cast<drivers::AConfiguration>(masterContext->getConfiguration()),
+        masterContext->getClientBuffer(),
+        callback);
 
     if (!trackHandleOpt) {
         logger.error("createAsyncTrack failed. Switching to Idle state");
@@ -41,7 +45,8 @@ StateType doDisconnect(AudioStreamContext* const masterContext) {
 } //anymouns namespace
 
 // IdlePlaybackState
-StateType IdlePlaybackState::connect(AudioStreamContext* const masterContext,
+StateType IdlePlaybackState::connect(
+    AudioStreamContext* const masterContext,
     const drivers::TrackBufferReadyCallback callback
 ) {
     return doConnect(masterContext, callback);
@@ -63,7 +68,8 @@ StateType ConnectedPlaybackState::start(AudioStreamContext* const masterContext)
     return StateType::Running;
 }
 
-StateType ConnectedPlaybackState::connect(AudioStreamContext* const masterContext,
+StateType ConnectedPlaybackState::connect(
+    AudioStreamContext* const masterContext,
     const drivers::TrackBufferReadyCallback callback
 ) {
     ConnectedPlaybackState::disconnect(masterContext);
@@ -75,7 +81,8 @@ StateType ConnectedPlaybackState::disconnect(AudioStreamContext* const masterCon
 }
 
 // RunningPlaybackState
-StateType RunningPlaybackState::connect(AudioStreamContext* const masterContext,
+StateType RunningPlaybackState::connect(
+    AudioStreamContext* const masterContext,
     const drivers::TrackBufferReadyCallback callback
 ) {
     const auto& oldTrackHandleOpt = masterContext->getTrackHandle();

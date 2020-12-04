@@ -44,7 +44,7 @@ TEST_CASE_METHOD(TestContext, "AudioStream valid flow", "[AudioPlaybackStream]")
 
     SECTION("connect to the stream") {
         std::optional<TrackHandle> trackHandleOpt = generateTrackHandle();
-        EXPECT_CALL(*driverMock, createAsyncTrack(ConfigMatcher(config), _))
+        EXPECT_CALL(*driverMock, createAsyncTrack(ConfigMatcher(config),_, _))
             .WillOnce(Return(trackHandleOpt));
 
         stream->connect([] (auto&) { });
@@ -88,7 +88,7 @@ TEST_CASE_METHOD(TestContext, "AudioStream valid flow", "[AudioPlaybackStream]")
                         EXPECT_CALL(*driverMock, stop(TrackHandleMatcher(*trackHandleOpt)))
                             .WillOnce(Return(true));
                         EXPECT_CALL(*driverMock, releaseTrack(TrackHandleMatcher(*trackHandleOpt)));
-                        EXPECT_CALL(*driverMock, createAsyncTrack(ConfigMatcher(config), _))
+                        EXPECT_CALL(*driverMock, createAsyncTrack(ConfigMatcher(config), _, _))
                            .WillOnce(Return(newTrackHandleOpt));
 
                         stream->connect([] (auto&) { });
@@ -140,7 +140,7 @@ TEST_CASE_METHOD(TestContext, "IdleState tests", "[AudioPlaybackStream]") {
     }
 
     SECTION("Idle::connect") {
-        EXPECT_CALL(*driverMock, createAsyncTrack(ConfigMatcher(config), _))
+        EXPECT_CALL(*driverMock, createAsyncTrack(ConfigMatcher(config), _, _))
             .WillOnce(Return(generateTrackHandle()));
         stream->connect([] (auto&) {});
         REQUIRE(*stream == StateType::Connected);
@@ -165,7 +165,7 @@ TEST_CASE_METHOD(TestContext, "IdleState tests", "[AudioPlaybackStream]") {
 TEST_CASE_METHOD(TestContext, "ConnectedState tests", "[AudioPlaybackStream]") {
     auto stream = std::make_unique<AudioPlaybackStream<uint32_t>>(config, driverMock);
     auto trackHandle = generateTrackHandle();
-    EXPECT_CALL(*driverMock, createAsyncTrack(ConfigMatcher(config), _)).WillOnce(Return(trackHandle));
+    EXPECT_CALL(*driverMock, createAsyncTrack(ConfigMatcher(config), _, _)).WillOnce(Return(trackHandle));
     stream->connect([] (auto& buffer) {
 
     });
@@ -189,7 +189,7 @@ TEST_CASE_METHOD(TestContext, "ConnectedState tests", "[AudioPlaybackStream]") {
     }
 
     SECTION("Connected::connect") {
-        EXPECT_CALL(*driverMock, createAsyncTrack(ConfigMatcher(config), _))
+        EXPECT_CALL(*driverMock, createAsyncTrack(ConfigMatcher(config), _, _))
             .WillOnce(Return(generateTrackHandle()));
         EXPECT_CALL(*driverMock, releaseTrack(TrackHandleMatcher(trackHandle)));
         stream->connect([] (auto&) {});
@@ -216,7 +216,7 @@ TEST_CASE_METHOD(TestContext, "ConnectedState tests", "[AudioPlaybackStream]") {
 TEST_CASE_METHOD(TestContext, "RunningState tests", "[AudioPlaybackStream]") {
     auto stream = std::make_unique<AudioPlaybackStream<uint32_t>>(config, driverMock);
     auto trackHandle = generateTrackHandle();
-    EXPECT_CALL(*driverMock, createAsyncTrack(ConfigMatcher(config), _)).WillOnce(Return(trackHandle));
+    EXPECT_CALL(*driverMock, createAsyncTrack(ConfigMatcher(config), _, _)).WillOnce(Return(trackHandle));
     EXPECT_CALL(*driverMock, start(TrackHandleMatcher(trackHandle))).WillOnce(Return(true));
     stream->connect([] (auto&) {});
     stream->start();
@@ -242,7 +242,7 @@ TEST_CASE_METHOD(TestContext, "RunningState tests", "[AudioPlaybackStream]") {
 
     SECTION("Running::connect") {
         EXPECT_CALL(*driverMock, stop(TrackHandleMatcher(trackHandle))).WillOnce(Return(true));
-        EXPECT_CALL(*driverMock, createAsyncTrack(ConfigMatcher(config), _))
+        EXPECT_CALL(*driverMock, createAsyncTrack(ConfigMatcher(config), _, _))
             .WillOnce(Return(generateTrackHandle()));
         EXPECT_CALL(*driverMock, releaseTrack(TrackHandleMatcher(trackHandle)));
         stream->connect([] (auto&) {});

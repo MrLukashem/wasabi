@@ -14,7 +14,7 @@ struct TrackData {
     std::size_t bufferSize;
     base::Channels numOfChannels;
     base::BitDepth bitDepth;
-    void const* buffer;
+    base::AudioBuffer<std::byte> buffer;
     /* data */
 };
 

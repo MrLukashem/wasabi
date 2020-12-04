@@ -66,6 +66,15 @@ public:
     {
         m_logger->warn(fmt, args...);
     }
+
+    template<
+        typename FormatString,
+        typename T,
+        typename std::enable_if<std::is_pointer_v<T>>::type* = nullptr>
+    void error(const FormatString &fmt, const T& arg)
+    {
+        m_logger->error(fmt, toVoidPointer(arg));
+    }
 protected:
     void setup(const std::string& name) {
         using namespace spdlog;

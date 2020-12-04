@@ -18,7 +18,9 @@ struct ASoundDriverTestContext {
 
 TEST_CASE_METHOD(ASoundDriverTestContext, "ASoundDriver basic flow", "[ASoundAudioDriver]") {
     AConfiguration config;
-    auto trackHandleOpt = aSoundDriver->createAsyncTrack(config, [] (auto) {});
+    audio::base::AudioBuffer<> buffer{};
+    auto trackHandleOpt = aSoundDriver->createAsyncTrack(
+        config, buffer, [] (auto) { return audio::base::AudioBuffer(); });
     REQUIRE(trackHandleOpt);
     REQUIRE(*trackHandleOpt != nullptr);
 

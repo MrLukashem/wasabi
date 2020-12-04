@@ -4,6 +4,7 @@
 #include "AudioStream.hpp"
 #include "AStreamConfiguration.hpp"
 #include "Exceptions.hpp"
+#include "TrackData.hpp"
 #include "TrackHandle.hpp"
 
 #include <memory>
@@ -24,6 +25,7 @@ struct AudioStreamContext {
     virtual drivers::AudioDriver* getDriver() const noexcept = 0;
     virtual AStreamConfiguration getConfiguration() const noexcept = 0;
     virtual std::optional<drivers::TrackHandle> getTrackHandle() const noexcept = 0;
+    virtual base::AudioBuffer<std::byte> getClientBuffer() noexcept = 0;
     virtual void resetTrackHandle() noexcept = 0;
     virtual void setTrackHandle(const drivers::TrackHandle& trackHandle) noexcept = 0;
 };
@@ -52,8 +54,15 @@ public:
         changeState(m_currentState->stop(this));
     }
 
-    void connect(const BufferReadyCallback<SampleType> callback) override {
-        changeState(m_currentState->connect(this, [this, callback] (auto trackData) {
+    void connect(const BufferReadyCallback<SampleType>& callback) override {
+        changeState(m_currentState->connect(this, [this, callback] (auto& trackData) {
+            if (trackData.buffer.getAddress() != m_clientBuffer.getAddress()) {
+                // client buffer address differ to driver buffer address. It should be checked.
+                auto buffer = trackData.buffer.template to<SampleType>();
+                callback(buffer);
+                return;
+            }
+
             callback(m_clientBuffer);
         }));
     }
@@ -87,6 +96,10 @@ public:
 
     std::optional<drivers::TrackHandle> getTrackHandle() const noexcept override {
         return m_trackHandle;
+    }
+
+    base::AudioBuffer<std::byte> getClientBuffer() noexcept override {
+        return m_clientBuffer.template to<std::byte>();
     }
 
     void resetTrackHandle() noexcept {
