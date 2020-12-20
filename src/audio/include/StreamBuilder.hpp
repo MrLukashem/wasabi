@@ -7,6 +7,7 @@
 #include "AudioTypes.hpp"
 #include "Builder.hpp"
 
+
 namespace wasabi {
 namespace audio {
 

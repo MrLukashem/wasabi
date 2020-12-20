@@ -28,6 +28,7 @@ add_executable(wasabi
     src/main.cpp
     src/audio/Devices.cpp
     src/audio/AudioPlaybackStream.cpp
+    src/audio/WasabiAudio.cpp
     src/audio/drivers/ASoundAudioDriver.cpp)
 
 # libs for the linker

@@ -10,6 +10,7 @@
 namespace wasabi {
 namespace audio {
 
+// TODO: remove m_
 struct AStreamConfiguration
 {
     explicit operator drivers::AConfiguration() const {
