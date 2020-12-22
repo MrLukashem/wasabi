@@ -29,7 +29,9 @@ add_executable(wasabi
     src/audio/Devices.cpp
     src/audio/AudioPlaybackStream.cpp
     src/audio/WasabiAudio.cpp
-    src/audio/drivers/ASoundAudioDriver.cpp)
+    src/audio/drivers/ASoundAudioDriver.cpp
+    src/audio/utils/DeviceCapabilitiesProviders.cpp
+)
 
 # libs for the linker
 target_link_libraries(wasabi libasound.so)
@@ -41,9 +43,12 @@ add_executable(wasabiTest
     tests/ASoundDriverTests.cpp
     tests/TypeWrapperTests.cpp
     tests/StreamBuilderTests.cpp
+    tests/DeviceCapabilitiesProvidersTests.cpp
     src/audio/Devices.cpp
     src/audio/AudioPlaybackStream.cpp
-    src/audio/drivers/ASoundAudioDriver.cpp)
+    src/audio/drivers/ASoundAudioDriver.cpp
+    src/audio/utils/DeviceCapabilitiesProviders.cpp
+)
 
 enable_testing()
 

@@ -220,6 +220,33 @@ src/audio/Devices.cpp.s:
 	$(MAKE) -f CMakeFiles/wasabi.dir/build.make CMakeFiles/wasabi.dir/src/audio/Devices.cpp.s
 .PHONY : src/audio/Devices.cpp.s
 
+src/audio/WasabiAudio.o: src/audio/WasabiAudio.cpp.o
+
+.PHONY : src/audio/WasabiAudio.o
+
+# target to build an object file
+src/audio/WasabiAudio.cpp.o:
+	$(MAKE) -f CMakeFiles/wasabi.dir/build.make CMakeFiles/wasabi.dir/src/audio/WasabiAudio.cpp.o
+.PHONY : src/audio/WasabiAudio.cpp.o
+
+src/audio/WasabiAudio.i: src/audio/WasabiAudio.cpp.i
+
+.PHONY : src/audio/WasabiAudio.i
+
+# target to preprocess a source file
+src/audio/WasabiAudio.cpp.i:
+	$(MAKE) -f CMakeFiles/wasabi.dir/build.make CMakeFiles/wasabi.dir/src/audio/WasabiAudio.cpp.i
+.PHONY : src/audio/WasabiAudio.cpp.i
+
+src/audio/WasabiAudio.s: src/audio/WasabiAudio.cpp.s
+
+.PHONY : src/audio/WasabiAudio.s
+
+# target to generate assembly for a file
+src/audio/WasabiAudio.cpp.s:
+	$(MAKE) -f CMakeFiles/wasabi.dir/build.make CMakeFiles/wasabi.dir/src/audio/WasabiAudio.cpp.s
+.PHONY : src/audio/WasabiAudio.cpp.s
+
 src/audio/drivers/ASoundAudioDriver.o: src/audio/drivers/ASoundAudioDriver.cpp.o
 
 .PHONY : src/audio/drivers/ASoundAudioDriver.o
@@ -249,6 +276,36 @@ src/audio/drivers/ASoundAudioDriver.cpp.s:
 	$(MAKE) -f CMakeFiles/wasabiTest.dir/build.make CMakeFiles/wasabiTest.dir/src/audio/drivers/ASoundAudioDriver.cpp.s
 	$(MAKE) -f CMakeFiles/wasabi.dir/build.make CMakeFiles/wasabi.dir/src/audio/drivers/ASoundAudioDriver.cpp.s
 .PHONY : src/audio/drivers/ASoundAudioDriver.cpp.s
+
+src/audio/utils/DeviceCapabilitiesProviders.o: src/audio/utils/DeviceCapabilitiesProviders.cpp.o
+
+.PHONY : src/audio/utils/DeviceCapabilitiesProviders.o
+
+# target to build an object file
+src/audio/utils/DeviceCapabilitiesProviders.cpp.o:
+	$(MAKE) -f CMakeFiles/wasabiTest.dir/build.make CMakeFiles/wasabiTest.dir/src/audio/utils/DeviceCapabilitiesProviders.cpp.o
+	$(MAKE) -f CMakeFiles/wasabi.dir/build.make CMakeFiles/wasabi.dir/src/audio/utils/DeviceCapabilitiesProviders.cpp.o
+.PHONY : src/audio/utils/DeviceCapabilitiesProviders.cpp.o
+
+src/audio/utils/DeviceCapabilitiesProviders.i: src/audio/utils/DeviceCapabilitiesProviders.cpp.i
+
+.PHONY : src/audio/utils/DeviceCapabilitiesProviders.i
+
+# target to preprocess a source file
+src/audio/utils/DeviceCapabilitiesProviders.cpp.i:
+	$(MAKE) -f CMakeFiles/wasabiTest.dir/build.make CMakeFiles/wasabiTest.dir/src/audio/utils/DeviceCapabilitiesProviders.cpp.i
+	$(MAKE) -f CMakeFiles/wasabi.dir/build.make CMakeFiles/wasabi.dir/src/audio/utils/DeviceCapabilitiesProviders.cpp.i
+.PHONY : src/audio/utils/DeviceCapabilitiesProviders.cpp.i
+
+src/audio/utils/DeviceCapabilitiesProviders.s: src/audio/utils/DeviceCapabilitiesProviders.cpp.s
+
+.PHONY : src/audio/utils/DeviceCapabilitiesProviders.s
+
+# target to generate assembly for a file
+src/audio/utils/DeviceCapabilitiesProviders.cpp.s:
+	$(MAKE) -f CMakeFiles/wasabiTest.dir/build.make CMakeFiles/wasabiTest.dir/src/audio/utils/DeviceCapabilitiesProviders.cpp.s
+	$(MAKE) -f CMakeFiles/wasabi.dir/build.make CMakeFiles/wasabi.dir/src/audio/utils/DeviceCapabilitiesProviders.cpp.s
+.PHONY : src/audio/utils/DeviceCapabilitiesProviders.cpp.s
 
 src/main.o: src/main.cpp.o
 
@@ -358,6 +415,33 @@ tests/AudioPlaybackStreamTests.cpp.s:
 	$(MAKE) -f CMakeFiles/wasabiTest.dir/build.make CMakeFiles/wasabiTest.dir/tests/AudioPlaybackStreamTests.cpp.s
 .PHONY : tests/AudioPlaybackStreamTests.cpp.s
 
+tests/DeviceCapabilitiesProvidersTests.o: tests/DeviceCapabilitiesProvidersTests.cpp.o
+
+.PHONY : tests/DeviceCapabilitiesProvidersTests.o
+
+# target to build an object file
+tests/DeviceCapabilitiesProvidersTests.cpp.o:
+	$(MAKE) -f CMakeFiles/wasabiTest.dir/build.make CMakeFiles/wasabiTest.dir/tests/DeviceCapabilitiesProvidersTests.cpp.o
+.PHONY : tests/DeviceCapabilitiesProvidersTests.cpp.o
+
+tests/DeviceCapabilitiesProvidersTests.i: tests/DeviceCapabilitiesProvidersTests.cpp.i
+
+.PHONY : tests/DeviceCapabilitiesProvidersTests.i
+
+# target to preprocess a source file
+tests/DeviceCapabilitiesProvidersTests.cpp.i:
+	$(MAKE) -f CMakeFiles/wasabiTest.dir/build.make CMakeFiles/wasabiTest.dir/tests/DeviceCapabilitiesProvidersTests.cpp.i
+.PHONY : tests/DeviceCapabilitiesProvidersTests.cpp.i
+
+tests/DeviceCapabilitiesProvidersTests.s: tests/DeviceCapabilitiesProvidersTests.cpp.s
+
+.PHONY : tests/DeviceCapabilitiesProvidersTests.s
+
+# target to generate assembly for a file
+tests/DeviceCapabilitiesProvidersTests.cpp.s:
+	$(MAKE) -f CMakeFiles/wasabiTest.dir/build.make CMakeFiles/wasabiTest.dir/tests/DeviceCapabilitiesProvidersTests.cpp.s
+.PHONY : tests/DeviceCapabilitiesProvidersTests.cpp.s
+
 tests/StreamBuilderTests.o: tests/StreamBuilderTests.cpp.o
 
 .PHONY : tests/StreamBuilderTests.o
@@ -430,9 +514,15 @@ help:
 	@echo "... src/audio/Devices.o"
 	@echo "... src/audio/Devices.i"
 	@echo "... src/audio/Devices.s"
+	@echo "... src/audio/WasabiAudio.o"
+	@echo "... src/audio/WasabiAudio.i"
+	@echo "... src/audio/WasabiAudio.s"
 	@echo "... src/audio/drivers/ASoundAudioDriver.o"
 	@echo "... src/audio/drivers/ASoundAudioDriver.i"
 	@echo "... src/audio/drivers/ASoundAudioDriver.s"
+	@echo "... src/audio/utils/DeviceCapabilitiesProviders.o"
+	@echo "... src/audio/utils/DeviceCapabilitiesProviders.i"
+	@echo "... src/audio/utils/DeviceCapabilitiesProviders.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
@@ -445,6 +535,9 @@ help:
 	@echo "... tests/AudioPlaybackStreamTests.o"
 	@echo "... tests/AudioPlaybackStreamTests.i"
 	@echo "... tests/AudioPlaybackStreamTests.s"
+	@echo "... tests/DeviceCapabilitiesProvidersTests.o"
+	@echo "... tests/DeviceCapabilitiesProvidersTests.i"
+	@echo "... tests/DeviceCapabilitiesProvidersTests.s"
 	@echo "... tests/StreamBuilderTests.o"
 	@echo "... tests/StreamBuilderTests.i"
 	@echo "... tests/StreamBuilderTests.s"

@@ -11,9 +11,9 @@ namespace wasabi {
 namespace audio {
 
 struct DeviceCapabilities {
-    const std::string name;
-    const std::vector<base::SampleRate> sampleRates;
-    const std::vector<base::BitDepth> bitDepths;
+    std::string name;
+    std::vector<base::SampleRate> sampleRates;
+    std::vector<base::BitDepth> bitDepths;
 };
 
 } // namespace audio
