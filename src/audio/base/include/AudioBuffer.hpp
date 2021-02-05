@@ -30,8 +30,8 @@ public:
     explicit AudioBuffer() = default;
 
     explicit AudioBuffer(const uint32_t length, const uint8_t numberOfChannels)
-        : m_data(std::make_shared<SampleType[]>((length + 1) * numberOfChannels)), m_length(length),
-        m_currentSample{} , m_numberOfChannels{numberOfChannels}, m_currentChannel{} { }
+        : m_data(new SampleType[(length + 1) * numberOfChannels]{}), m_length(length),
+        m_currentSample{} , m_numberOfChannels{numberOfChannels}, m_currentChannel{1} { }
 
     AudioBuffer(AudioBuffer&& buffer) {
         m_data = std::move(buffer.m_data);
@@ -74,19 +74,19 @@ public:
     }
 
     auto begin() noexcept {
-        return Iterator(m_data.get() + (length() * m_currentChannel), length());
+        return Iterator(m_data.get() + ((length() - 1) * (m_currentChannel - 1)), length());
     }
 
     auto end() noexcept {
-        return Iterator(m_data.get() + (length() * m_currentChannel) + 1, length());
+        return Iterator(m_data.get() + ((length() - 1) * (m_currentChannel - 1)) + length() + 1, length());
     }
 
     auto cbegin() const noexcept {
-        return ConstIterator(m_data.get() + (length() * m_currentChannel), length());
+        return ConstIterator(m_data.get() + ((length() - 1) * (m_currentChannel - 1)), length());
     }
 
     auto cend() const noexcept {
-        return ConstIterator(m_data.get() + (length() * m_currentChannel) + 1, length());
+        return ConstIterator(m_data.get() + ((length() - 1) * (m_currentChannel - 1)) + length() + 1, length());
     }
 
     uint32_t length() const {
@@ -122,28 +122,28 @@ public:
         return static_cast<const void*>(data());
     }
 
-    void putSample(const SampleType& sample, const uint32_t channel = 0) {
-        m_data[channel * m_length + m_currentSample] = sample;
+    void putSample(const SampleType& sample, const uint32_t channel = 1) {
+        m_data[(channel - 1) * m_length + m_currentSample] = sample;
         ++m_currentSample;
     }
 
-    void emplaceSample(const SampleType& sample, const uint32_t n, const uint32_t channel = 0) {
-        m_data[channel * m_length + n] = sample;
+    void emplaceSample(const SampleType& sample, const uint32_t n, const uint32_t channel = 1) {
+        m_data[(channel - 1) * m_length + n] = sample;
     }
 
-    SampleType& getNextSample(const uint32_t channel = 0) {
-        return m_data[channel * m_length + m_currentSample++];
+    SampleType& getNextSample(const uint32_t channel = 1) {
+        return m_data[(channel - 1) * m_length + m_currentSample++];
     }
 
-    SampleType& getSample(const uint32_t n, const uint32_t channel = 0) {
-        return m_data[channel * m_length + n];
+    SampleType& getSample(const uint32_t n, const uint32_t channel = 1) {
+        return m_data[(channel - 1) * m_length + n];
     }
 
-    const SampleType& getSample(const uint32_t n, const uint32_t channel = 0) const {
-        return m_data[channel * m_length + n];
+    const SampleType& getSample(const uint32_t n, const uint32_t channel = 1) const {
+        return m_data[(channel - 1) * m_length + n];
     }
 
-    SampleType& getNextSampleAndAdvance(const uint32_t channel = 0) {
+    SampleType& getNextSampleAndAdvance(const uint32_t channel = 1) {
         auto& sample = getSample(channel);
         ++m_currentSample;
         return sample;

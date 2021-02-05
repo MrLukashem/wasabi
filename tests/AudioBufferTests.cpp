@@ -56,19 +56,16 @@ TEST_CASE("iterators", "[AudioBuffer]") {
         REQUIRE(buffer.length() == 100);
 
         uint32_t seed{};
-        const auto& generateSample = [&seed] () {
-            return seed++;
-        };
-
         for (auto& sample : buffer) {
-            sample = generateSample();
+            sample = seed++;
         }
 
         seed = 0;
         for (auto itr = buffer.begin(); itr != buffer.end(); ++itr) {
-            REQUIRE(*itr == generateSample());
+            REQUIRE(*itr == seed++);
         }
 
+        const auto i = buffer.getSample(10);
         REQUIRE(buffer.getSample(10) == 10);
         REQUIRE(buffer.getSample(55) == 55);
         REQUIRE(buffer.getSample(99) == 99);
@@ -113,12 +110,13 @@ TEST_CASE("operator[]", "[AudioBuffer]") {
 }
 
 // TODO: make test for more channels
+// TODO: iterate channels from 0, not 1
 TEST_CASE("operator[][]", "[AudioBuffer]") {
     AudioBuffer<uint32_t> buffer(10, 1);
 
     uint32_t n = 0;
     for (uint32_t i = 0; i < buffer.length(); ++i) {
-        buffer[i][0] = n;
+        buffer[i][1] = n;
         ++n;
     }
 
